@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partial/head.ejs") %>
+
+<body>
+ <%- include("./partial/nav.ejs") %>
+ <main>
+    <div class="container">
+    <% for (let event of events) { %>
+    <div class="card text-center">
+        <div class="card-header">
+            <%
+           const date = new Date(event.date);
+           const dateString = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+           const startTime = new Date(event.startTime);
+           const startTimeString = startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
+           const endTime = new Date(event.endTime);
+           const endTimeString = endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
+        %>
+            
+            <%=event.eventType %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= event.eventTitle%></h5>
+          <% if (event.eventSublist) { %>
+            <ul style="list-style: none;">
+            <% for (let list of event.eventSublist){ %>
+                <li>
+                <input type="checkbox"> <span class="card-text"><%=list %></span>
+                </li>
+            <% } %>
+            </ul>
+          <% } %>
+        </div>
+        <div class="card-footer text-body-secondary">
+            <%= dateString %> From <%= startTimeString %> To <%= endTimeString %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+ </main>
+</body>

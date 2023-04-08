@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <%- include("./partial/head.ejs") %>
+  <head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridWeek'
+        })
+        calendar.render()
+      })
+
+    </script>
+  </head>
+  <body>
+    <%- include("./partial/nav.ejs") %>
+    <div id='calendar'></div>
+  </body>
+</html>
