@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("./partial/head.ejs") %>
+  <%- include("../partial/head.ejs") %>
 
 <body>
- <%- include("./partial/nav.ejs") %>
+ <%- include("../partial/nav.ejs") %>
  <main>
     <div class="container">
-    <% for (let event of events) { %>
     <div class="card text-center">
         <div class="card-header">
             <%
@@ -21,7 +20,9 @@
             <%=event.eventType %>
         </div>
         <div class="card-body">
-          <h5 class="card-title"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
+          <h5 class="card-title"><%= event.eventTitle%></h5>
+          <h5 class="card-title">Repeat:<%= event.repeat%></h5>
+          <h5 class="card-title">important:<%= event.important%></h5>
           <% if (event.eventSublist) { %>
             <ul style="list-style: none;">
             <% for (let list of event.eventSublist){ %>
@@ -34,9 +35,11 @@
         </div>
         <div class="card-footer text-body-secondary">
             <%= dateString %> From <%= startTimeString %> To <%= endTimeString %>
+            <a href="/event/<%=event._id%>/edit" class="btn btn-warning">edit</a>
+            <form action="/event/<%=event._id%>?_method=DELETE" method="POST">
+            <input type="submit" class="btn btn-danger" value="Delete"/></form>
         </div>
       </div>
-      <% } %>
     </div>
  </main>
 </body>

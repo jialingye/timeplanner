@@ -44,20 +44,25 @@ router.get('/seed',async(req,res)=>{
 
 // New
 router.get('/new',(req,res)=>{
-    res.render('new.ejs')
+    res.render('event/new.ejs')
 })
 
 // Show
 router.get('/:id', async (req, res) => {
-    const event = await Event.findById(req.params.id)
-    res.render('show.ejs',{event});
-});
+    try {
+      const event = await Event.findById(req.params.id)
+      res.render('event/show.ejs', { event })
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('An error occurred while retrieving the event')
+    }
+  })
 
 // Edit
 router.get('/:id/edit', async(req,res)=>{
     const event = await Event.findById(req.params.id)
-    res.render('edit.ejs',{event})
-})
+    res.render('event/edit.ejs',{event})
+});
 
 // Delete
 router.delete('/:id', async (req, res) => {
@@ -68,7 +73,7 @@ router.delete('/:id', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
     req.body.important=req.body.important==="on"? true:false;
-    const event = await Animal.findByIdAndUpdate(req.params.id, req.body, {
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
     res.redirect('/daily');

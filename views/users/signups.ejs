@@ -1,0 +1,11 @@
+<%- include("../partials/head.ejs") %>
+<h1>Signup for an account</h1>
+<form method="POST" action="/signup">
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email" placeholder="something@gmail.com">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" placeholder="abc123">
+    <label for="password">Password:</label>
+    <input type="text" name="password" id="password">
+    <input type="submit" value="Create a new user">
+</form>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partial/head.ejs") %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<body>
+    <%- include("../partial/nav.ejs") %>
+ <main>
+    <div class="container">
+        <form action="/event" method="post">
+        <fieldset>
+            <legend>Create a To-do Item</legend>
+            <label>
+                To-do Title:<input
+                  type="text"
+                  name="eventTitle"
+                  placeholder="enter event title"
+                />
+              </label>
+              <label>
+                To-do Type:
+                <select name="eventType">
+                  <option value="work">Work</option>
+                  <option value="study">Study</option>
+                  <option value="family">Family</option>
+                  <option value="personal">Personal</option>
+                  <option value="health">Health</option>
+                  <option value="sleep">Sleep</option>
+                  <option value="fun">Fun</option>
+                  <option value="misc">Misc</option>
+                </select>
+              </label>
+              <label>
+                Repeat:
+                <select name="repeat">
+                  <option value="daily">Daily</option>
+                  <option value="weekly">weekly</option>
+                  <option value="monthly">monthly</option>
+                </select>
+              </label>
+              <label>
+                To-do Sub-tasks:
+                <div class="sublist">
+                            <input type="checkbox" name="eventSublist[]" >
+                    <button id="add-task">Add Task</button>
+                </div>
+                <script>
+                    $('#add-task').click(function() {
+                     var taskNumber = $('.task').length + 1;
+                     var newTask = '<div class="task"><input type="checkbox" name="task" value="task' + taskNumber + '"> Task ' + taskNumber + '</div>';
+                     $('#tasks-container').append(newTask);
+                    });
+                </script>
+              </label>
+
+
+  
+
+        </fieldset>
+        <input type="submit" value="Update" />
+        </form>
+    </div>
+ </main>
+</body>
+</html>
