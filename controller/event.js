@@ -37,7 +37,6 @@ router.post('/',async(req,res)=>{
 //index route
 router.get('/', async(req,res) =>{
     const events= await Event.find({})
-    console.log(events)
     res.render('index',{events})
 })
 
@@ -89,13 +88,9 @@ router.delete('/:id', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
     const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
-    req.body.important=req.body.important==="on"? true:false;
-    console.log(date,startTime,endTime)
+    console.log('date:'+ date,'start time'+startTime,'end time'+endTime)
     const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    console.log(date,eventTitle)
-    console.log(start)
-    console.log(end)
     req.body.important=req.body.important==="on"? true:false;
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
@@ -108,7 +103,7 @@ router.put('/:id', async (req, res) => {
     }, {
         new: true
     })
-    res.redirect('/daily');
+    res.redirect('/event');
 });
 
 module.exports = router;

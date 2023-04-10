@@ -8,34 +8,38 @@
         <form class="row g-3" action="/event/<%-event._id%>?_method=PUT" method="post">
         <fieldset>
             <legend>Edit a To-do Item</legend>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="important" <%=event.important ? "checked": "" %> />
+                <label class="form-check-label" for="flexSwitchCheckDefault">Important</label>
+            </div>
             <div class="col-md-6">
                 <label>
                     Date:
                     <input type="date" name="date" class="form-control" value="<%=event.date %>" />
                 </label>
-                </div>
+            </div>
             <div class="col-md-6">
-            <label>
-                Start Time:
-                <input type="time" name="startTime" class="form-control" step="60" value="<%=event.startTime %>"/>
-            </label>
+                <label>
+                    Start Time: 
+                    <input type="time" name="startTime" class="form-control" step="60" value="<%=event.startTime %>"/>
+                </label>
             </div>
             <div class="col-md-12">
-            <label>
-                End Time:
-                <input type="time" name="endTime" class="form-control" step="60" value="<%=event.endTime %>" />
-            </label>
+                <label>
+                    End Time: 
+                    <input type="time" name="endTime" class="form-control" step="60" value="<%=event.endTime %>" />
+                </label>
             </div>
             <div class="col-md-6">
-            <label class="form-label">
-                To-Do Title:<input
-                  class="form-control form-select-lg mb-3"
-                  type="text"
-                  name="eventTitle"
-                  value="<%= event.eventTitle %>"
-                  placeholder="enter event title"
-                />
-              </label>
+                <label class="form-label">
+                    To-Do Title:<input
+                    class="form-control form-select-lg mb-3"
+                    type="text"
+                    name="eventTitle"
+                    value="<%= event.eventTitle %>"
+                    placeholder="enter event title"
+                    />
+                </label>
             </div>
             <div class="col-md-6">
                 To-Do Type:
@@ -50,9 +54,7 @@
                     <option value="fun">Fun</option>
                     <option value="misc">Misc</option>
                 </select>
-    
             </div>
-
             <div class="col-md-6">
               <label>
                 Repeat:
@@ -65,7 +67,6 @@
                 </select>
               </label>
             </div>
-
             <div class="col-md-12 task-container">
               <label>
                 Sub-tasks:
@@ -81,7 +82,7 @@
                     </div>
                     
               </label>
-              </div>
+            </div>
         </fieldset>
         <input type="submit" value="Update" />
         </form>

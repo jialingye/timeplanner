@@ -8,6 +8,10 @@
         <form class="row g-3" action="/event" method="post">
         <fieldset>
             <legend>Create a To-do Item</legend>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="important" value="<% event.important %>">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Important</label>
+            </div>
             <div class="col-md-6">
                 <label>
                     Date:
