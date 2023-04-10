@@ -11,30 +11,30 @@
             <div class="col-md-6">
                 <label>
                     Date:
-                    <input type="date" name="startTime" class="form-control" />
+                    <input type="date" name="date" class="form-control" />
                 </label>
-                </div>
+            </div>
             <div class="col-md-6">
-            <label>
+                <label>
                 Start Time:
                 <input type="time" name="startTime" class="form-control" step="60" />
-            </label>
-            </div>
-            <div class="col-md-12">
-            <label>
-                End Time:
-                <input type="time" name="endTime" class="form-control" step="60" />
-            </label>
+                </label>
             </div>
             <div class="col-md-6">
-            <label class="form-label">
-                To-Do Title:<input
+                <label>
+                End Time:
+                <input type="time" name="endTime" class="form-control" step="60" />
+                </label>
+            </div>
+            <div class="col-md-6">
+                  <label class="form-label">
+                  To-Do Title:<input
                   class="form-control form-select-lg mb-3"
                   type="text"
                   name="eventTitle"
                   placeholder="enter event title"
                 />
-              </label>
+                 </label>
             </div>
             <div class="col-md-6">
                 To-Do Type:
@@ -50,7 +50,6 @@
                 </select>
     
             </div>
-
             <div class="col-md-6">
               <label>
                 Repeat:
@@ -62,7 +61,6 @@
                 </select>
               </label>
             </div>
-
             <div class="col-md-12 task-container">
               <label>
                 Sub-tasks:
@@ -71,9 +69,8 @@
                     <input type="text" class="todotask" name="eventSublist">
                     <button id="add-task">Add Task</button>
                     </div>
-
               </label>
-              </div>
+            </div>
         </fieldset>
         <input type="submit" value="Update" />
         </form>
@@ -81,15 +78,21 @@
  </main>
 </body>
 <script>
+    let taskArr=[];
     $('#add-task').click(function(event) {
-     event.preventDefault();
-     const taskValue = $('.todotask').val();
-     const newTask = '<div class="task"><input type="checkbox" name="eventSublist" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
-     $('.task-container').append(newTask);
-    });
-    $('.delete').on('click','delete', function(event){
         event.preventDefault();
-        $(this).parent().remove();
+        const taskValue = $('.todotask').val();
+        const newTask = '<div class="task"><input type="checkbox" name="eventSublist" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
+        $('.task-container').append(newTask);
+        taskArr.push(taskValue);
+        console.log(taskArr)
+    });
+    $('.delete').on('click', function(event){
+        event.preventDefault();
+        const index=taskArr.indexOf($(this).val());
+        taskArr.splice(index,1);
+        $(this).closest('.task').remove();
+        console.log(taskArr)
     })
 </script>
 </html>

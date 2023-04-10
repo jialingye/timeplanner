@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router= express.Router();
+const moment=require('moment');
 
 //import the model
 const Event = require('../model/event');
@@ -8,12 +9,28 @@ const eventSeed=require('../db/eventSeed');
 
 //create route
 router.post('/',async(req,res)=>{
+    const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
     req.body.important=req.body.important==="on"? true:false;
+    console.log(date,startTime,endTime)
+    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    console.log(date,eventTitle)
+    console.log(start)
+    console.log(end)
+
     try{
-        const todoEvent= await Event.create(req.body)
+        const todoEvent= await Event.create({
+            date,
+            eventTitle,
+            eventType,
+            startTime:start,
+            endTime:end,
+            repeat,
+            important
+        })
         res.redirect('/daily')
     } catch (err){
-        res.send('Error massage: '+err)
+        res.send('Error massage: '+ err)
     }
 })
 
@@ -32,7 +49,6 @@ router.get('/seed',async(req,res)=>{
           
               // Seed the database with the example events
               await Event.create(eventSeed);
-              console.log(eventSeed)
           
               // Redirect to the events index page
               res.redirect('/event');
@@ -72,8 +88,24 @@ router.delete('/:id', async (req, res) => {
 
 // Update
 router.put('/:id', async (req, res) => {
+    const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
     req.body.important=req.body.important==="on"? true:false;
-    const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    console.log(date,startTime,endTime)
+    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    console.log(date,eventTitle)
+    console.log(start)
+    console.log(end)
+    req.body.important=req.body.important==="on"? true:false;
+    const event = await Event.findByIdAndUpdate(req.params.id, {
+        eventTitle,
+        eventType,
+        date,
+        startTime: start,
+        endTime:end,
+        repeat,
+        important
+    }, {
         new: true
     })
     res.redirect('/daily');

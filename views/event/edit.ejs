@@ -7,11 +7,11 @@
     <div class="container">
         <form class="row g-3" action="/event/<%-event._id%>?_method=PUT" method="post">
         <fieldset>
-            <legend>Create a To-do Item</legend>
+            <legend>Edit a To-do Item</legend>
             <div class="col-md-6">
                 <label>
                     Date:
-                    <input type="date" name="startTime" class="form-control" value="<%=event.Date %>" />
+                    <input type="date" name="date" class="form-control" value="<%=event.date %>" />
                 </label>
                 </div>
             <div class="col-md-6">
@@ -89,15 +89,21 @@
  </main>
 </body>
 <script>
+    let taskArr=[];
     $('#add-task').click(function(event) {
-     event.preventDefault();
-     const taskValue = $('.todotask').val();
-     const newTask = '<div class="task"><input type="checkbox" name="eventSublist" class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" value=" '+ taskValue +' ">' + taskValue + '<button class="delete">x</button></div>';
-     $('.task-container').append(newTask);
+        event.preventDefault();
+        const taskValue = $('.todotask').val();
+        const newTask = '<div class="task"><input type="checkbox" name="eventSublist" class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
+        $('.task-container').append(newTask);
+        taskArr.push(taskValue);
+        console.log(taskArr)
     });
     $('.delete').on('click','delete', function(event){
-        event.preventDefault();
-        $(this).parent().remove();
+            event.preventDefault();
+            const index=taskArr.indexOf($(this).val());
+            taskArr.slice(index,1);
+            $(this).closest('.task').remove();
     })
+
 </script>
 </html>
