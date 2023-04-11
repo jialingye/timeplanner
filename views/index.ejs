@@ -24,7 +24,7 @@
           <h5 class="card-title"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
           <% if (event.eventSublist) { %>
             <ul style="list-style: none;">
-            <% for (let list of event.eventSublist){ %>
+            <% for (let list of event.subtasks){ %>
                 <li>
                 <input type="checkbox"> <span class="card-text"><%=list %></span>
                 </li>

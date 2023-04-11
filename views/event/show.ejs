@@ -23,9 +23,9 @@
           <h5 class="card-title"><%= event.eventTitle%></h5>
           <h5 class="card-title">Repeat:<%= event.repeat%></h5>
           <h5 class="card-title">important:<%= event.important%></h5>
-          <% if (event.eventSublist) { %>
+          <% if (event.subtasks) { %>
             <ul style="list-style: none;">
-            <% for (let list of event.eventSublist){ %>
+            <% for (let list of event.subtasks){ %>
                 <li>
                 <input type="checkbox"> <span class="card-text"><%=list %></span>
                 </li>

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
     <%- include("../partial/head.ejs") %>
-  
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/dist/fullcalendar.min.css' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
         const calendarEl = document.getElementById('calendar')
         const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          events: '<%= JSON.stringify(eventData)%>'
         })
         calendar.render()
       })

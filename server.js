@@ -11,6 +11,8 @@ app.use(express.json())
 app.use(methodOverride("_method"))
 app.set('view engine', 'ejs');
 
+const Event = require('./model/event');
+const eventSeed=require('./db/eventSeed');
 //routes
 app.get('/',(req,res)=>{
     res.send('default route')
@@ -20,8 +22,18 @@ const eventController = require('./controller/event')
 app.use('/event',eventController);
 
 
-app.get('/monthly',(req,res)=>{
-    res.render('calendar/monthly')
+app.get('/monthly', async(req,res)=>{
+    const events= await Event.find({})
+    const eventData= events.map((event)=>{
+        return{
+            title: event.eventTitle,
+            start: event.startTime,
+            end: event.endTime,
+            allDay:false,
+
+        }
+    })
+    res.render('calendar/monthly',{eventData})
 })
 app.get('/weekly',(req,res)=>{
     res.render('calendar/weekly')

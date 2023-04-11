@@ -3,6 +3,11 @@ const mongoose=require('mongoose')
 //import Schema (explaination)
 const Schema = mongoose.Schema;
 
+const subtaskSchema= new Schema({
+  subtask: String
+})
+
+
 //create a todo schema
 const eventSchema = new Schema({
     date: {
@@ -25,10 +30,8 @@ const eventSchema = new Schema({
         type: String,
         default: ""
       },
-    eventSublist: {
-        type: [String],
-        default: []
-      },
+    subtasks:[subtaskSchema],
+
     repeat: {
         type: String,
         enum:['daily','weekly','monthly','yearly','none'],

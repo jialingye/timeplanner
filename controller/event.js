@@ -9,15 +9,16 @@ const eventSeed=require('../db/eventSeed');
 
 //create route
 router.post('/',async(req,res)=>{
-    const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
+    console.log(req.body)
     req.body.important=req.body.important==="on"? true:false;
-    console.log(date,startTime,endTime)
+    const {eventTitle,eventType,date,startTime,endTime,repeat,important,eventSublist}=req.body;
+    console.log(eventSublist)
+    const subtasks = eventSublist.map((task)=>{
+        return {subtask: task}
+    })
+    console.log(subtasks)
     const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    console.log(date,eventTitle)
-    console.log(start)
-    console.log(end)
-
     try{
         const todoEvent= await Event.create({
             date,
@@ -26,8 +27,10 @@ router.post('/',async(req,res)=>{
             startTime:start,
             endTime:end,
             repeat,
-            important
+            important,
+            subtasks
         })
+        console.log(todoEvent)
         res.redirect('/daily')
     } catch (err){
         res.send('Error massage: '+ err)
@@ -75,8 +78,8 @@ router.get('/:id', async (req, res) => {
 
 // Edit
 router.get('/:id/edit', async(req,res)=>{
-    const event = await Event.findById(req.params.id)
-    res.render('event/edit.ejs',{event})
+    const todo = await Event.findById(req.params.id)
+    res.render('event/edit.ejs',{todo})
 });
 
 // Delete
@@ -87,11 +90,15 @@ router.delete('/:id', async (req, res) => {
 
 // Update
 router.put('/:id', async (req, res) => {
-    const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
-    console.log('date:'+ date,'start time'+startTime,'end time'+endTime)
-    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
     req.body.important=req.body.important==="on"? true:false;
+    const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
+    const eventSublist=req.body.eventSublist;
+    console.log(req.body.eventSublist)
+    console.log(eventSublist)
+    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A');
+
+    console.log(eventSublist)
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
         eventType,
@@ -99,6 +106,7 @@ router.put('/:id', async (req, res) => {
         startTime: start,
         endTime:end,
         repeat,
+        eventSublist,
         important
     }, {
         new: true

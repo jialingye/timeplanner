@@ -9,7 +9,7 @@
         <fieldset>
             <legend>Create a To-do Item</legend>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="important" value="<% event.important %>">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="important">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Important</label>
             </div>
             <div class="col-md-6">
@@ -82,21 +82,24 @@
  </main>
 </body>
 <script>
-    let taskArr=[];
+   const eventSublist=[];
     $('#add-task').click(function(event) {
         event.preventDefault();
         const taskValue = $('.todotask').val();
-        const newTask = '<div class="task"><input type="checkbox" name="eventSublist" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
+        const newTask = '<div class="task"><input type="text" name="eventSublist" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
         $('.task-container').append(newTask);
-        taskArr.push(taskValue);
-        console.log(taskArr)
+        eventSublist.push(taskValue);
+
+        $('.todotask').val('')
     });
     $('.delete').on('click', function(event){
         event.preventDefault();
-        const index=taskArr.indexOf($(this).val());
-        taskArr.splice(index,1);
+        const index=eventSublist.indexOf($(this).val());
+        if(index> -1){
+            eventSublist.splice(index,1);
+        }
         $(this).closest('.task').remove();
-        console.log(taskArr)
     })
+   
 </script>
 </html>
