@@ -11,11 +11,11 @@ const eventSeed=require('../db/eventSeed');
 router.post('/',async(req,res)=>{
     console.log(req.body)
     req.body.important=req.body.important==="on"? true:false;
-    const {eventTitle,eventType,date,startTime,endTime,repeat,important,eventSublist}=req.body;
-    console.log(eventSublist)
-    const subtasks = eventSublist.map((task)=>{
-        return {subtask: task}
-    })
+    const {eventTitle,eventType,date,startTime,endTime,repeat,important,subtasks}=req.body;
+    console.log(subtasks)
+    // const subtasks = eventSublist.map((task)=>{
+    //     return {subtask: task}
+    // })
     console.log(subtasks)
     const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
@@ -91,22 +91,23 @@ router.delete('/:id', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
     req.body.important=req.body.important==="on"? true:false;
-    const {eventTitle,eventType,date,startTime,endTime,repeat,important}=req.body;
-    const eventSublist=req.body.eventSublist;
-    console.log(req.body.eventSublist)
-    console.log(eventSublist)
+    const {eventTitle,eventType,date,startTime,endTime,repeat,subtasks,important}=req.body;
+ 
     const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A');
-
-    console.log(eventSublist)
+    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    // const startString=`${date}T${startTime}`;
+    // const start= new Date(startString).toISOString();
+    // const endString=`${date}T${endTime}`;
+    // const end= new Date(endString).toISOString();
+console.log(start,end)
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
         eventType,
         date,
         startTime: start,
-        endTime:end,
+        endTime: end,
         repeat,
-        eventSublist,
+        subtasks,
         important
     }, {
         new: true

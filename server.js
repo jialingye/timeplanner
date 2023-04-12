@@ -27,13 +27,14 @@ app.get('/monthly', async(req,res)=>{
     const eventData= events.map((event)=>{
         return{
             title: event.eventTitle,
-            start: event.startTime,
-            end: event.endTime,
+            start: event.startTime.toISOString(),
+            end: event.endTime.toISOString(),
             allDay:false,
-
         }
     })
-    res.render('calendar/monthly',{eventData})
+    console.log(eventData)
+    const eventDataJson=JSON.stringify(eventData)
+    res.render('calendar/monthly',{eventDataJson})
 })
 app.get('/weekly',(req,res)=>{
     res.render('calendar/weekly')

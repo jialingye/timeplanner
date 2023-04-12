@@ -21,13 +21,13 @@
             <div class="col-md-6">
                 <label>
                     Start Time: 
-                    <input type="time" name="startTime" class="form-control" step="60" value="<%=todo.startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false });%>"/>
+                    <input type="time" name="startTime" class="form-control" step="60" value="<%=todo.startTime.toLocaleTimeString('en-US', {timeZone:'UTC', hour: 'numeric', minute: 'numeric', hour12: false });%>"/>
                 </label>
             </div>
             <div class="col-md-12">
                 <label>
                     End Time: 
-                    <input type="time" name="endTime" class="form-control" step="60" value="<%=todo.endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }) %>" />
+                    <input type="time" name="endTime" class="form-control" step="60" value="<%=todo.endTime.toLocaleTimeString('en-US', { timeZone:'UTC', hour: 'numeric', minute: 'numeric', hour12: false }) %>" />
                 </label>
             </div>
             <div class="col-md-6">
@@ -70,17 +70,16 @@
             <div class="col-md-12 task-container">
               <label>
                 Sub-tasks:
-                    <div class="task">
-                        <input type="text" class="todotask form-control" name="eventSublist">
-                        <button id="add-task">Add Task</button>
-                        <% todo.eventSublist.forEach(function(subtask){ %>
-                            <div>
-                                <input type="checkbox" name="eventSublist" value="<%= subtask%>" class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" >
-                                <span><%=subtask%><button class="delete btn-close"></button></span>
+                    <div class="tasks">
+                        <% todo.subtasks.forEach(function(list){ %>
+                            <div class="list">
+                                <input type="text" name="subtask" value="<%=list.subtask%>" class="form-control form-select-sm mb-2" >
+                                <span><button class="delete btn-close"></button></span>
                             </div>
                         <%})%>
                     </div>
-                    
+                        <input type="text" class="todotask form-control" name="subtask" placeholder="Add task">
+                        <span><button id="add-task">Add Task</button></span>  
               </label>
             </div>
         </fieldset>
@@ -90,13 +89,17 @@
  </main>
 </body>
 <script>
+    todo=JSON.parse('<%-JSON.stringify(todo) %>');
+    console.log(todo.subtasks)
     $('#add-task').click(function(event) {
         event.preventDefault();
         const taskValue = $('.todotask').val();
-        const newTask = '<div class="task"><input type="checkbox" name="eventSublist" class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
-        $('.task-container').append(newTask);
-        todo.eventSublist.push(taskValue);
-        console.log(todo.eventSublist);
+        const newTask = '<div class="list"><h5>' + taskValue + '</h5><button class="delete btn-close"></button></div>';
+        $('.tasks').append(newTask);
+        console.log(newTask)
+        todo.subtasks.push({subtask:taskValue});
+        console.log(todo.subtasks);
+        $('todotask').val('')
     });
     $('.delete').on('click', function(event){
             event.preventDefault();

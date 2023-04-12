@@ -11,7 +11,7 @@
         <div class="card-header">
             <%
            const date = new Date(event.date);
-           const dateString = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+           const dateString = date.toLocaleDateString('en-US', { timeZone:'UTC', month: 'short', day: 'numeric', year: 'numeric' });
            const startTime = new Date(event.startTime);
            const startTimeString = startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
            const endTime = new Date(event.endTime);
@@ -22,11 +22,11 @@
         </div>
         <div class="card-body">
           <h5 class="card-title"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
-          <% if (event.eventSublist) { %>
+          <% if (event.subtasks) { %>
             <ul style="list-style: none;">
             <% for (let list of event.subtasks){ %>
                 <li>
-                <input type="checkbox"> <span class="card-text"><%=list %></span>
+                <input type="checkbox"> <span class="card-text"><%=list.subtask %></span>
                 </li>
             <% } %>
             </ul>

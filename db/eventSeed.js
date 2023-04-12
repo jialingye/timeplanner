@@ -5,7 +5,7 @@ module.exports=[
         endTime: new Date('2023-04-07T11:00:00'),
         eventType: 'work',
         eventTitle: 'Finish Project Report',
-        eventSublist: ['Data analysis', 'Drafting'],
+        subtasks: [{subtask:'Data analysis'}, {subtask:'Drafting'}],
         important: true,
         repeat: 'daily'
       },
@@ -15,7 +15,7 @@ module.exports=[
         endTime: new Date('2023-04-07T16:00:00'),
         eventType: 'study',
         eventTitle: 'Study for Exam',
-        eventSublist: ['Read Chapter 6', 'Practice problems'],
+        subtasks: [{subtask:'Read Chapter 6'}, {subtask:'Practice problems'}],
         important: false,
         repeat: 'weekly'
       },
@@ -25,7 +25,7 @@ module.exports=[
         endTime: new Date('2023-04-08T12:00:00'),
         eventType: 'family',
         eventTitle: 'Visit Grandparents',
-        eventSublist: ['Bring flowers', 'Buy gifts'],
+        subtasks: [{subtask:'Bring flowers'}, {subtask:'Buy gifts'}],
         important: true,
         repeat: 'none'
       }
