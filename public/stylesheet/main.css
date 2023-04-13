@@ -22,6 +22,7 @@ a{
 }
 .card {
     padding: 20px;
+    width: 280px;
     height: 250px;
     border: 5px solid transparent;
     border-radius: 30%
@@ -34,27 +35,72 @@ a{
     background-color: transparent;
 }
 
+.container-sm{
+    border: 2px solid transparent;
+    border-radius: 3em;
+    padding: 40px;
+    margin-top: 50px;
+    max-width: 60%;
+    letter-spacing: 1px;
+}
+.line{
+    border-bottom: 1px solid black;
+}
+
+.inputtask{
+    display: flex;
+    margin: 5px;
+}
+
+.task {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.inputtask li{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px;
+    background-color: #c0bdae;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.delete {
+    font-size: 14px;
+    padding: 0.25rem 0.5rem;
+}
 .yellow {
     background-color: #fee1a7;
     border: 2ex solid transparent;
-    border-radius: 1em; 
+    border-radius: 1em;
+    padding: 2px;
 
 }
 
 .brown {
     background-color: #d2b8aa;
+    border: 2ex solid transparent;
+    border-radius: 1em; 
 }
 
 .blue {
     background-color: #abb4c3;
+    border: 2ex solid transparent;
+    border-radius: 1em; 
 }
 
 .green {
     background-color: #92a4a4;
+
 }
 
 .grey {
     background-color: #ACAFB4;
+    border: 2ex solid transparent;
+    border-radius: 1em; 
 }
 
 .font {

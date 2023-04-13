@@ -4,7 +4,7 @@
 <body>
     <%- include("../partial/nav.ejs") %>
  <main>
-    <div class="container">
+    <!-- <div class="container">
         <form class="row g-3" action="/event" method="post">
         <fieldset>
             <legend>Create a To-do Item</legend>
@@ -69,15 +69,65 @@
         </fieldset>
         <input type="submit" value="Update" />
         </form>
-    </div>
- </main>
+    </div> -->
+    <main>
+        <div class="container">
+          <form class="row g-3" action="/event" method="post">
+            <fieldset>
+              <legend class="font">Create a To-do Item</legend>
+              <div class="form-check form-switch col-md-6">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="completed">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Completed</label>
+              </div>
+              <div class="col-md-6">
+                <label for="date-input" class="form-label">Date:</label>
+                <input type="date" id="date-input" name="date" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="start-time-input" class="form-label">Start Time:</label>
+                <input type="time" id="start-time-input" name="startTime" class="form-control" step="60" />
+              </div>
+              <div class="col-md-6">
+                <label for="end-time-input" class="form-label">End Time:</label>
+                <input type="time" id="end-time-input" name="endTime" class="form-control" step="60" />
+              </div>
+              <div class="col-md-12">
+                <label for="event-title-input" class="form-label">To-Do Title:</label>
+                <input class="form-control mb-3" type="text" id="event-title-input" name="eventTitle" placeholder="Enter event title" />
+              </div>
+              <div class="col-md-12">
+                <label for="event-type-select" class="form-label">To-Do Type:</label>
+                <select id="event-type-select" name="eventType" class="form-select mb-3" aria-label="Default select example">
+                  <option value="work">WORK</option>
+                  <option value="study">STUDY</option>
+                  <option value="family">FAMILY</option>
+                  <option value="personal">PERSONAL</option>
+                  <option value="health">HEALTH</option>
+                  <option value="sleep">SLEEP</option>
+                  <option value="fun">FUN</option>
+                </select>
+            <div class="form-group col-md-12 task-container">
+                <label for="sub-tasks">Sub-tasks:</label>
+                <div >
+                    <div class="inputtask">
+                        <input type="text" id="sub-tasks" class="form-control form-control-sm todotask">
+                        <button id="add-task" class="btn btn-sm btn-secondary">Add Task</button>
+                    </div>
+                        <ul class="task-add"></ul>
+                </div>
+                </div>
+            </fieldset>
+            <input type="submit" value="Update" class="btn green mt-3">
+            </form>
+     </div>
+</main>
 </body>
 <script>
    const subtasks=[];
     $('#add-task').click(function(event) {
         event.preventDefault();
         const taskValue = $('.todotask').val();
-        const newTask = '<div class="task"><li><input type="hidden" name="subtasks" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></li></div>';
+        const newTask = '<li class="task"><input type="hidden" name="subtasks" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></li>';
         $('.task-add').append(newTask);
         subtasks.push(taskValue);
 

@@ -4,10 +4,7 @@
 
 <body>
  <%- include("../partial/nav.ejs") %>
- <main>
-    <div class="container">
-    <div class="card text-center <%= event.eventType %>" >
-        <div class="card-header">
+ <main>    
             <%
            const date = new Date(event.date);
            const dateString = date.toLocaleDateString('en-US', { timeZone:'UTC', month: 'short', day: 'numeric', year: 'numeric' });
@@ -15,29 +12,52 @@
            const startTimeString = startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
            const endTime = new Date(event.endTime);
            const endTimeString = endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
-        %>
-            
-            <%=event.eventType %>
+        %>  
+    <div class="container-sm <%=event.eventType %>">
+      <div class="row line">
+        <div class="col-9">
+          <div class="card-header">
+            <h4 class="font"><%= event.eventType %></h4>
+            <h1 class="mb-0 font"><%=event.eventTitle %></h1>
+            <br>
+          </div>
         </div>
-        <div class="card-body ">
-          <h5 class="card-title font"><%= event.eventTitle%></h5>
-          <h5 class="card-title">Repeat:<%= event.repeat%></h5>
-          <h5 class="card-title">completed:<%= event.completed%></h5>
-          <% if (event.subtasks) { %>
-            <ul style="list-style: none;">
-            <% for (let list of event.subtasks){ %>
-                <li>
-                 <h5 class="card-text"><%=list%></h5>
-                </li>
-            <% } %>
-            </ul>
-          <% } %>
+        <div class="col-3">
+          <h4 class="mb-3 font"><%= event.completed===true? "Completed": "Incomplete"%></h4>
         </div>
-        <div class="card-footer text-body-secondary">
-            <%= dateString %> From <%= startTimeString %> To <%= endTimeString %>
-            <a href="/event/<%=event._id%>/edit" class="btn btn-warning">edit</a>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card-body">
+            <br>
+            <h2 class="mb-3 font"><%= dateString %></h2>
+            <h3 class="font"><%= startTimeString %> To <%= endTimeString %></h3>
+      
+          </div>
+          <div class="btn-group" role="group">
+            <a href="/event/<%=event._id%>/edit" class="yellow">Edit</a>
             <form action="/event/<%=event._id%>?_method=DELETE" method="POST">
-            <input type="submit" class="btn btn-danger" value="Delete"/></form>
+              <button type="submit" class="brown">Delete</button>
+            </form>
+          </div>
+        </div>
+    
+        <div class="col-md-6">
+          <div class="card-footer"> 
+            
+            
+            <br>
+            <h4 class="font">Subtasks:</h4>
+            <ul class="list-group">
+              <% if (event.subtasks) { %>
+                <% for (let list of event.subtasks){ %>
+                  <li class="list-group-item"><%=list%></li>
+                <% } %>
+              <% } %>
+            </ul>
+            
+          </div>
         </div>
       </div>
     </div>
