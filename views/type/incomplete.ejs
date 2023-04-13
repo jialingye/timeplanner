@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("./partial/head.ejs") %>
+  <%- include("../partial/head.ejs") %>
 
 <body>
- <%- include("./partial/nav.ejs") %>
+ <%- include("../partial/nav.ejs") %>
  <main>
  
     <div class="container-fluid">
       <div class="row">
-    <% for (let event of events) { %>
+    <% for (let event of incomplete) { %>
       <%
       const date = new Date(event.date);
       const dateString = date.toLocaleDateString('en-US', { timeZone:'UTC', month: 'short', day: 'numeric', year: 'numeric' });

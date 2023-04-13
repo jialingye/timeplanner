@@ -9,6 +9,7 @@ const methodOverride=require('method-override');
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(methodOverride("_method"))
+app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs');
 
 const Event = require('./model/event');
@@ -32,15 +33,34 @@ app.get('/monthly', async(req,res)=>{
             allDay:false,
         }
     })
-    console.log(eventData)
     const eventDataJson=JSON.stringify(eventData)
     res.render('calendar/monthly',{eventDataJson})
 })
-app.get('/weekly',(req,res)=>{
-    res.render('calendar/weekly')
+app.get('/weekly',async(req,res)=>{
+    const events= await Event.find({})
+    const eventData= events.map((event)=>{
+        return{
+            title: event.eventTitle,
+            start: event.startTime.toISOString(),
+            end: event.endTime.toISOString(),
+            allDay:false,
+        }
+    })
+    const eventDataJson=JSON.stringify(eventData)
+    res.render('calendar/weekly', {eventDataJson})
 })
-app.get('/daily',(req,res)=>{
-    res.render('calendar/daily')
+app.get('/daily',async(req,res)=>{
+    const events= await Event.find({})
+    const eventData= events.map((event)=>{
+        return{
+            title: event.eventTitle,
+            start: event.startTime.toISOString(),
+            end: event.endTime.toISOString(),
+            allDay:false,
+        }
+    })
+    const eventDataJson=JSON.stringify(eventData)
+    res.render('calendar/daily',{eventDataJson})
 })
 
 // app.get('/animal',(req,res)=>{

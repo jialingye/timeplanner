@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+   background-color: f6f0f3; 
+   
+}
+
+header {
+ /* justify-content: center; */
+ /* border: solid 2px gray; */
+}
+
+a{
+    color: darkslategrey
+}
+.shape{
+    padding: 20px;
+}
+.card {
+    padding: 20px;
+    height: 250px;
+    border: 5px solid transparent;
+    border-radius: 30%
+}
+.card-header {
+    background-color: transparent;
+}
+
+.card-footer {
+    background-color: transparent;
+}
+
+.yellow {
+    background-color: #fee1a7;
+    border: 2ex solid transparent;
+    border-radius: 1em; 
+
+}
+
+.brown {
+    background-color: #d2b8aa;
+}
+
+.blue {
+    background-color: #abb4c3;
+}
+
+.green {
+    background-color: #92a4a4;
+}
+
+.grey {
+    background-color: #ACAFB4;
+}
+
+.font {
+    font-family: 'Abril Fatface', cursive;
+}
+
+.STUDY {
+    background-color:#bfbdae;
+}
+
+.SLEEP {
+    background-color:#a99b9a;
+}
+
+.FAMILY {
+    background-color: #f4d5d2; 
+}
+.PERSONAL{
+    background-color: #ecdcc3;
+}
+
+.FUN {
+    background-color: #cdae9b; 
+}
+
+.WORK {
+    background-color: #d4dbe5; 
+}
+
+.HEALTH {
+    background-color: #d1b6cc; 
+}
+
+.MISC {
+    background-color: #e6d4c8; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,8 +9,8 @@
         <fieldset>
             <legend>Create a To-do Item</legend>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="important">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Important</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="completed">
+                <label class="form-check-label" for="flexSwitchCheckDefault">completed</label>
             </div>
             <div class="col-md-6">
                 <label>
@@ -43,35 +43,26 @@
             <div class="col-md-6">
                 To-Do Type:
                 <select name="eventType" class="form-select form-select-lg mb-3" aria-label="Default select example">
-                    <option value="work">Work</option>
-                    <option value="study">Study</option>
-                    <option value="family">Family</option>
-                    <option value="personal">Personal</option>
-                    <option value="health">Health</option>
-                    <option value="sleep">Sleep</option>
-                    <option value="fun">Fun</option>
-                    <option value="misc">Misc</option>
+                    <option value="work">WORK</option>
+                    <option value="study">STUDY</option>
+                    <option value="family">FAMILY</option>
+                    <option value="personal">PERSONAL</option>
+                    <option value="health">HEALTH</option>
+                    <option value="sleep">SLEEP</option>
+                    <option value="fun">FUN</option>
+                    <option value="misc">MISC</option>
                 </select>
     
-            </div>
-            <div class="col-md-6">
-              <label>
-                Repeat:
-                <select name="repeat" class="form-select form-select-lg mb-3" aria-label="Default select example">
-                  <option value="none">None</option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">weekly</option>
-                  <option value="monthly">monthly</option>
-                </select>
-              </label>
             </div>
             <div class="col-md-12 task-container">
               <label>
                 Sub-tasks:
                     <div class="task">
-                    <input type="checkbox" > 
-                    <input type="text" class="todotask" name="eventSublist">
+                    <input type="text" class="todotask">
                     <button id="add-task">Add Task</button>
+                    <ul class="task-add">
+
+                    </ul>
                     </div>
               </label>
             </div>
@@ -82,24 +73,23 @@
  </main>
 </body>
 <script>
-   const eventSublist=[];
+   const subtasks=[];
     $('#add-task').click(function(event) {
         event.preventDefault();
         const taskValue = $('.todotask').val();
-        const newTask = '<div class="task"><input type="text" name="eventSublist" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></div>';
-        $('.task-container').append(newTask);
-        eventSublist.push(taskValue);
+        const newTask = '<div class="task"><li><input type="hidden" name="subtasks" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></li></div>';
+        $('.task-add').append(newTask);
+        subtasks.push(taskValue);
 
         $('.todotask').val('')
     });
     $('.delete').on('click', function(event){
         event.preventDefault();
-        const index=eventSublist.indexOf($(this).val());
+        const index=subtasks.indexOf($(this).val());
         if(index> -1){
-            eventSublist.splice(index,1);
+            subtasks.splice(index,1);
         }
         $(this).closest('.task').remove();
     })
-   
 </script>
 </html>

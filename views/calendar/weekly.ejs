@@ -6,9 +6,11 @@
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
+        const data=JSON.parse(`<%- eventDataJson %>`)
         const calendarEl = document.getElementById('calendar')
         const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridWeek'
+          initialView: 'dayGridWeek',
+          events: data
         })
         calendar.render()
       })

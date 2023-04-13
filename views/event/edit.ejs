@@ -9,7 +9,7 @@
         <fieldset>
             <legend>Edit a To-do Item</legend>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="important" <%=todo.important ? "checked": "" %> />
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="completed" <%=todo.completed ? "checked": "" %> />
                 <label class="form-check-label" for="flexSwitchCheckDefault">Important</label>
             </div>
             <div class="col-md-6">
@@ -21,13 +21,13 @@
             <div class="col-md-6">
                 <label>
                     Start Time: 
-                    <input type="time" name="startTime" class="form-control" step="60" value="<%=todo.startTime.toLocaleTimeString('en-US', {timeZone:'UTC', hour: 'numeric', minute: 'numeric', hour12: false });%>"/>
+                    <input type="time" name="startTime" class="form-control" step="60" value="<%=todo.startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false });%>"/>
                 </label>
             </div>
             <div class="col-md-12">
                 <label>
                     End Time: 
-                    <input type="time" name="endTime" class="form-control" step="60" value="<%=todo.endTime.toLocaleTimeString('en-US', { timeZone:'UTC', hour: 'numeric', minute: 'numeric', hour12: false }) %>" />
+                    <input type="time" name="endTime" class="form-control" step="60" value="<%=todo.endTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: false }) %>" />
                 </label>
             </div>
             <div class="col-md-6">
@@ -45,39 +45,31 @@
                 To-Do Type:
                 <select name="eventType" class="form-select form-select-lg mb-3" aria-label="Default select example">
                     <option selected><%=todo.eventType %></option>
-                    <option value="work">Work</option>
-                    <option value="study">Study</option>
-                    <option value="family">Family</option>
-                    <option value="personal">Personal</option>
-                    <option value="health">Health</option>
-                    <option value="sleep">Sleep</option>
-                    <option value="fun">Fun</option>
-                    <option value="misc">Misc</option>
+                    <option value="work">WORK</option>
+                    <option value="study">STUDY</option>
+                    <option value="family">FAMILY</option>
+                    <option value="personal">PERSONAL</option>
+                    <option value="health">HEALTH</option>
+                    <option value="sleep">SLEEP</option>
+                    <option value="fun">FUN</option>
+                    <option value="misc">MISC</option>
                 </select>
-            </div>
-            <div class="col-md-6">
-              <label>
-                Repeat:
-                <select name="repeat" class="form-select form-select-lg mb-3" aria-label="Default select example">
-                  <option selected><%=todo.repeat %></option>
-                  <option value="none">None</option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">weekly</option>
-                  <option value="monthly">monthly</option>
-                </select>
-              </label>
             </div>
             <div class="col-md-12 task-container">
               <label>
                 Sub-tasks:
+                <ul>
                     <div class="tasks">
+                        
                         <% todo.subtasks.forEach(function(list){ %>
-                            <div class="list">
-                                <input type="text" name="subtask" value="<%=list.subtask%>" class="form-control form-select-sm mb-2" >
+                            <li>
+                                <input type="text" name="subtask" value="<%=list%>" class="form-control form-select-sm mb-2" >
                                 <span><button class="delete btn-close"></button></span>
-                            </div>
+                            </li>
                         <%})%>
+                       
                     </div>
+                </ul>
                         <input type="text" class="todotask form-control" name="subtask" placeholder="Add task">
                         <span><button id="add-task">Add Task</button></span>  
               </label>
@@ -89,16 +81,13 @@
  </main>
 </body>
 <script>
-    todo=JSON.parse('<%-JSON.stringify(todo) %>');
-    console.log(todo.subtasks)
+    const subtasks=todo.subtasks;
     $('#add-task').click(function(event) {
         event.preventDefault();
         const taskValue = $('.todotask').val();
-        const newTask = '<div class="list"><h5>' + taskValue + '</h5><button class="delete btn-close"></button></div>';
+        const newTask = `<div class="list"><li><input type="hidden" name="subtasks" value="${taskValue}">${taskValue}<button class="delete btn-close"></button></li></div>`;
         $('.tasks').append(newTask);
-        console.log(newTask)
-        todo.subtasks.push({subtask:taskValue});
-        console.log(todo.subtasks);
+        todo.subtasks.push(taskValue);
         $('todotask').val('')
     });
     $('.delete').on('click', function(event){

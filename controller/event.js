@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router= express.Router();
-const moment=require('moment');
+const moment=require('moment-timezone');
+
 
 //import the model
 const Event = require('../model/event');
@@ -9,16 +10,17 @@ const eventSeed=require('../db/eventSeed');
 
 //create route
 router.post('/',async(req,res)=>{
-    console.log(req.body)
-    req.body.important=req.body.important==="on"? true:false;
-    const {eventTitle,eventType,date,startTime,endTime,repeat,important,subtasks}=req.body;
-    console.log(subtasks)
-    // const subtasks = eventSublist.map((task)=>{
+    req.body.completed=req.body.completed==="on"? true:false;
+    const {eventTitle,eventType,date,startTime,endTime,completed,subtasks}=req.body;
+    // const subtaskArr = subtasks.map((task)=>{
     //     return {subtask: task}
     // })
-    console.log(subtasks)
-    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    const start=(moment(`${date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
+    // console.log('start',moment.tz(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
+    // console.log('end',moment.tz(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
+    const end=moment(`${date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    // const start=`${date}T${startTime}:00.000Z`;
+    // const end=`${date}T${endTime}:00.000Z`;
     try{
         const todoEvent= await Event.create({
             date,
@@ -26,12 +28,10 @@ router.post('/',async(req,res)=>{
             eventType,
             startTime:start,
             endTime:end,
-            repeat,
-            important,
+            completed,
             subtasks
         })
-        console.log(todoEvent)
-        res.redirect('/daily')
+        res.redirect('/event')
     } catch (err){
         res.send('Error massage: '+ err)
     }
@@ -41,6 +41,11 @@ router.post('/',async(req,res)=>{
 router.get('/', async(req,res) =>{
     const events= await Event.find({})
     res.render('index',{events})
+})
+
+router.get('/incomplete', async(req,res) =>{
+    const incomplete= await Event.find({completed:false})
+    res.render('type/incomplete',{incomplete})
 })
 
 //Seed
@@ -85,20 +90,25 @@ router.get('/:id/edit', async(req,res)=>{
 // Delete
 router.delete('/:id', async (req, res) => {
     const event = await Event.findByIdAndDelete(req.params.id)
-    res.redirect('/daily')
+    res.redirect('/event')
 });
 
 // Update
 router.put('/:id', async (req, res) => {
-    req.body.important=req.body.important==="on"? true:false;
-    const {eventTitle,eventType,date,startTime,endTime,repeat,subtasks,important}=req.body;
- 
-    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
+    req.body.completed=req.body.completed==="on"? true:false;
+    const {eventTitle,eventType,date,startTime,endTime,subtasks,completed}=req.body;
+    console.log(date,startTime,endTime)
+    // const start=new Date(`${date}${startTime}`)
+    const start=(moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
+    // console.log('start',moment.tz(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
+    // console.log('end',moment.tz(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    // const startString=`${date}T${startTime}`;
-    // const start= new Date(startString).toISOString();
-    // const endString=`${date}T${endTime}`;
-    // const end= new Date(endString).toISOString();
+
+    // const start=new Date(`${date}T${startTime}:00.000Z`);
+    // const end=new Date(`${date}T${endTime}:00.000Z`);
+    // console.log(start, end )
+    
+
 console.log(start,end)
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
@@ -106,9 +116,8 @@ console.log(start,end)
         date,
         startTime: start,
         endTime: end,
-        repeat,
         subtasks,
-        important
+        completed
     }, {
         new: true
     })
