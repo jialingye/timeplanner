@@ -1,31 +1,24 @@
 <!DOCTYPE html>
-<html lang='en'>
-  <head>
+<html>
     <%- include("../partial/head.ejs") %>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css' />
-    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js'></script>
+  <head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script>
-      $(document).ready(function() {
+
+      document.addEventListener('DOMContentLoaded', function() {
         const data=JSON.parse(`<%- eventDataJson %>`)
-        var calendar = $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },
-          defaultView: 'month',
-          editable: true,
-          events: data
-          
-        });
-      });
-      
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          events:data
+        })
+        calendar.render()
+      })
+
     </script>
   </head>
   <body>
     <%- include("../partial/nav.ejs") %>
-    <div id='calendar' class="container"></div>
+    <div id='calendar'></div>
   </body>
 </html>

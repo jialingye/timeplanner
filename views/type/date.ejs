@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partial/head.ejs") %>
+
+<body>
+ <%- include("../partial/nav.ejs") %>
+ <main>    
+        <form action="/event/date" method="GET">
+          <div class="row">
+            <div class="col-md-4">
+              Date:
+              <input type="date" name="date" class="form-control" value="<%=new Date().toISOString().split('T')[0]%>"/>
+          </div>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-secondary btntype"> Search</button>
+        </div>
+            
+          </div>
+        </form>
+
+        <div class="container-fluid">
+          <% if (events.length=== 0) { %>
+            <p>To-do Not Found</p>
+          <% } else { %>
+            <div class="row">
+            <% for (let event of events) { %>
+              <%
+              const date = new Date(event.date);
+              const dateString = date.toLocaleDateString('en-US', { timeZone:'UTC', month: 'short', day: 'numeric', year: 'numeric' });
+              const startTime = new Date(event.startTime);
+              const startTimeString = event.startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+              const endTime = new Date(event.endTime);
+              const endTimeString = endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
+           %>
+            <div class=" shape col-md-2 col-sm-4 col-xs-12">
+            <div class="card text-center <%= event.eventType %>">
+                <div class="card-header font">
+                    <%=event.eventType %>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title font"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
+                  <p class="card-title"><%= event.completed=== true? "Completed":"Incomplete"%></p>
+                  <!-- <% if (event.subtasks) { %>
+                    <ul style="list-style: none;">
+                    <% for (let list of event.subtasks){ %>
+                        <li>
+                        <input type="checkbox"> <span class="card-text"><%=list %></span>
+                        </li>
+                    <% } %>
+                    </ul>
+                  <% } %> -->
+                </div>
+                <div class="card-footer text-body-secondar font">
+                    <%= dateString %> <br> <%= startTimeString %> To <%= endTimeString %>
+                </div>
+              </div>
+            </div>
+              <% } %>
+            </div>
+          <%}%>
+        </div>
+ </main>
+</body>

@@ -81,30 +81,31 @@
               </div>
               <div class="col-md-6">
                 <label for="date-input" class="form-label">Date:</label>
-                <input type="date" id="date-input" name="date" class="form-control" />
+                <input type="date" id="date-input" name="date" class="form-control" required/>
               </div>
               <div class="col-md-6">
                 <label for="start-time-input" class="form-label">Start Time:</label>
-                <input type="time" id="start-time-input" name="startTime" class="form-control" step="60" />
+                <input type="time" id="start-time-input" name="startTime" class="form-control" step="60" required />
               </div>
               <div class="col-md-6">
                 <label for="end-time-input" class="form-label">End Time:</label>
-                <input type="time" id="end-time-input" name="endTime" class="form-control" step="60" />
+                <input type="time" id="end-time-input" name="endTime" class="form-control" step="60" required/>
               </div>
               <div class="col-md-12">
                 <label for="event-title-input" class="form-label">To-Do Title:</label>
-                <input class="form-control mb-3" type="text" id="event-title-input" name="eventTitle" placeholder="Enter event title" />
+                <input class="form-control mb-3" type="text" id="event-title-input" name="eventTitle" placeholder="Enter event title" required/>
               </div>
               <div class="col-md-12">
                 <label for="event-type-select" class="form-label">To-Do Type:</label>
-                <select id="event-type-select" name="eventType" class="form-select mb-3" aria-label="Default select example">
-                  <option value="work">WORK</option>
-                  <option value="study">STUDY</option>
-                  <option value="family">FAMILY</option>
-                  <option value="personal">PERSONAL</option>
-                  <option value="health">HEALTH</option>
-                  <option value="sleep">SLEEP</option>
-                  <option value="fun">FUN</option>
+                <select id="event-type-select" name="eventType" class="form-select mb-3" aria-label="Default select example" required>
+                  <option value="WORK">WORK</option>
+                  <option value="STUDY">STUDY</option>
+                  <option value="FAMILY">FAMILY</option>
+                  <option value="PERSONAL">PERSONAL</option>
+                  <option value="HEALTH">HEALTH</option>
+                  <option value="SLEEP">SLEEP</option>
+                  <option value="FUN">FUN</option>
+                  <option value="MISC">MISC</option>
                 </select>
             <div class="form-group col-md-12 task-container">
                 <label for="sub-tasks">Sub-tasks:</label>

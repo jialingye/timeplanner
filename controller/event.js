@@ -39,14 +39,51 @@ router.post('/',async(req,res)=>{
 
 //index route
 router.get('/', async(req,res) =>{
-    const events= await Event.find({})
+    const events = await Event.find({})
     res.render('index',{events})
 })
 
 router.get('/incomplete', async(req,res) =>{
-    const incomplete= await Event.find({completed:false})
+    const incomplete = await Event.find({completed:false})
     res.render('type/incomplete',{incomplete})
 })
+
+//search route
+router.get('/type', async(req,res) =>{
+  const eventType = req.query.eventType ;
+  const completed = req.query.completed;
+
+  const query={};
+  if(eventType){
+    query.eventType = eventType;
+  }
+  if (completed){
+    query.completed = completed;
+  }
+
+  try{
+    const events=await Event.find(query);
+    res.render ('type/eventtype', {events});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('server error')
+  }
+})
+
+router.get('/date', async(req,res) =>{
+    const date = req.query.date ;
+    const query={};
+    if(date){
+      query.date = date;
+    }
+    try{
+      const events=await Event.find(query);
+      res.render ('type/date', {events});
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('server error')
+    }
+  })
 
 //Seed
 router.get('/seed',async(req,res)=>{
@@ -81,6 +118,18 @@ router.get('/:id', async (req, res) => {
     }
   })
 
+// Show
+router.get('date/:date', async (req, res) => {
+    try {
+      const {date} = req.params;
+      const events = await Event.findById({date: date})
+      res.render('type/date.ejs', { events })
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('An error occurred while retrieving the event')
+    }
+  })
+
 // Edit
 router.get('/:id/edit', async(req,res)=>{
     const todo = await Event.findById(req.params.id)
@@ -97,7 +146,9 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,subtasks,completed}=req.body;
-    console.log(date,startTime,endTime)
+    const todo= await Event.findById(req.params.id);
+    todo.subtasks = req.body.newSubtasks  ? [...todo.subtasks, ... req.body.newSubtasks]:todo.subtasks;
+    
     // const start=new Date(`${date}${startTime}`)
     const start=(moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
     // console.log('start',moment.tz(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
@@ -108,7 +159,7 @@ router.put('/:id', async (req, res) => {
     // const end=new Date(`${date}T${endTime}:00.000Z`);
     // console.log(start, end )
     
-
+await todo.save();
 console.log(start,end)
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,

@@ -3,6 +3,7 @@
     <%- include("../partial/head.ejs") %>
 <body>
     <%- include("../partial/nav.ejs") %>
+    <% console.log(todo) %>
 <main>
     <div class="container">
         <form class="row g-3" action="/event/<%-todo._id%>?_method=PUT" method="post">
@@ -45,14 +46,14 @@
                 To-Do Type:
                 <select name="eventType" class="form-select form-select-lg mb-3" aria-label="Default select example">
                     <option selected><%=todo.eventType %></option>
-                    <option value="work">WORK</option>
-                    <option value="study">STUDY</option>
-                    <option value="family">FAMILY</option>
-                    <option value="personal">PERSONAL</option>
-                    <option value="health">HEALTH</option>
-                    <option value="sleep">SLEEP</option>
-                    <option value="fun">FUN</option>
-                    <option value="misc">MISC</option>
+                    <option value="WORK">WORK</option>
+                    <option value="STUDY">STUDY</option>
+                    <option value="FAMILY">FAMILY</option>
+                    <option value="PERSONAL">PERSONAL</option>
+                    <option value="HEALTH">HEALTH</option>
+                    <option value="SLEEP">SLEEP</option>
+                    <option value="FUN">FUN</option>
+                    <option value="MISC">MISC</option>
                 </select>
             </div>
             <div class="col-md-12 task-container">
@@ -81,21 +82,25 @@
  </main>
 </body>
 <script>
+    const todo= <%- JSON.stringify(todo) %>
+    console.log("........................................................");
+    console.log(todo)
     const subtasks=todo.subtasks;
+    console.log(subtasks)
+    
     $('#add-task').click(function(event) {
         event.preventDefault();
         const taskValue = $('.todotask').val();
-        const newTask = `<div class="list"><li><input type="hidden" name="subtasks" value="${taskValue}">${taskValue}<button class="delete btn-close"></button></li></div>`;
+        const newTask = `<div class="list"><li><input type="hidden" name="newSubtasks" value="${taskValue}">${taskValue}<button class="delete btn-close"></button></li></div>`;
         $('.tasks').append(newTask);
-        todo.subtasks.push(taskValue);
+        subtasks.push(taskValue);
         $('todotask').val('')
     });
     $('.delete').on('click', function(event){
             event.preventDefault();
-            console.log(event.currentTarget)
-            // const index=eventSublist.indexOf($(this).val());
-            // eventSublist.slice(index,1);
-            // $(this).closest('.task').remove();
+            const index=todo.subtasks.indexOf($(this).val());
+            todo.subtasks.slice(index,1);
+            $(this).closest('.task').remove();
     })
 
 </script>
