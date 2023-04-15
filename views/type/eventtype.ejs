@@ -7,7 +7,7 @@
  <main>    
         <form action="/event/type" method="GET">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               To-Do Type:
               <select name="eventType" class="form-select form-select-lg mb-3" aria-label="Default select example">
                   <option value="" selected disabled>Select an option</option>
@@ -21,15 +21,19 @@
                   <option value="MISC">MISC</option>
               </select>
           </div>
-          <div class="col-md-4">
-            Complete:
-            <select name="completed" class="form-select form-select-lg mb-3" aria-label="Default select example">
-                <option value="" selected disabled>Select an option</option> 
-                <option value="true">completed</option>
-                <option value="false">incomplete</option>
-            </select>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          Complete:
+          <select name="completed" class="form-select form-select-lg mb-3" aria-label="Default select example">
+              <option value="" selected disabled>Select an option</option> 
+              <option value="true">completed</option>
+              <option value="false">incomplete</option>
+          </select>
+      </div>
+      <div class="col-md-3">
+        Date:
+        <input type="date" name="date" class="form-control" value=""/>
+     </div>
+        <div class="col-md-3">
           <button type="submit" class="btn btn-secondary btntype"> Search</button>
         </div>
             

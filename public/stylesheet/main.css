@@ -25,7 +25,7 @@ a{
     width: 280px;
     height: 250px;
     border: 5px solid transparent;
-    border-radius: 30%
+    border-radius: 3em;
 }
 .card-header {
     background-color: transparent;
@@ -43,6 +43,8 @@ a{
     max-width: 60%;
     letter-spacing: 1px;
 }
+
+
 .line{
     border-bottom: 1px solid black;
 }
@@ -76,6 +78,25 @@ a{
 .btntype{
     margin-top: 25px;
 }
+
+.division {
+    border: 10px solid #e6d3d6;
+    border-radius: 3em;
+    margin: 25px;
+}
+.ulc{
+    display: flex;
+    justify-content: center;
+}
+.rec {
+    border: 10px solid transparent;
+    border-radius: 3em;
+    margin: 10px;
+}
+
+.pomotodo{
+    height: 600px;
+}
 .yellow {
     background-color: #fee1a7;
     border: 2ex solid transparent;
@@ -87,13 +108,17 @@ a{
 .brown {
     background-color: #d2b8aa;
     border: 2ex solid transparent;
-    border-radius: 1em; 
+    border-radius: 2em; 
+    width: 150px;
+    text-align: center;
 }
 
 .blue {
     background-color: #abb4c3;
     border: 2ex solid transparent;
-    border-radius: 1em; 
+    border-radius: 2em; 
+    width: 150px;
+    text-align: center;
 }
 
 .green {
@@ -101,10 +126,18 @@ a{
 
 }
 
-.grey {
-    background-color: #ACAFB4;
+.red{
+    background-color: #e6d3d6;
     border: 2ex solid transparent;
-    border-radius: 1em; 
+    border-radius: 2em; 
+}
+
+.grey {
+    background-color: #ecdcc3;
+    width: 150px;
+    border: 2ex solid transparent;
+    border-radius: 2em;
+    text-align: center;
 }
 
 .font {
@@ -145,14 +178,6 @@ a{
 
 
 
-
-
-.container-fluid {
-    height: 100%;
-    width:100%;
-    display: table;
-    padding: 0;
-  }
   
   .row-fluid{
     display: table-cell;
@@ -183,8 +208,9 @@ a{
     height:40px;
     width:40px;
     font-size:12px;
+    display: block;
     background-color:rgb(255, 195, 77);
-    display:block;
+ 
     margin:0 auto;
   }
   
@@ -197,4 +223,8 @@ a{
   .setsize{
     width: 800px;
     height:50px;
+  }
+
+  .tutorial{
+    cursor: pointer;
   }

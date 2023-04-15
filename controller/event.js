@@ -52,6 +52,7 @@ router.get('/incomplete', async(req,res) =>{
 router.get('/type', async(req,res) =>{
   const eventType = req.query.eventType ;
   const completed = req.query.completed;
+  const date = req.query.date;
 
   const query={};
   if(eventType){
@@ -59,6 +60,9 @@ router.get('/type', async(req,res) =>{
   }
   if (completed){
     query.completed = completed;
+  }
+  if(date){
+    query.date = date;
   }
 
   try{

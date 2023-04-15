@@ -6,24 +6,23 @@
  <%- include("../partial/nav.ejs") %>
  <main>    
         <form action="/event/date" method="GET">
-          <div class="row">
-            <div class="col-md-4">
-              Date:
-              <input type="date" name="date" class="form-control" value="<%=new Date().toISOString().split('T')[0]%>"/>
-          </div>
-        <div class="col-md-4">
-          <button type="submit" class="btn btn-secondary btntype"> Search</button>
-        </div>
-            
-          </div>
+            <div class="row">
+              <div class="col-md-4">
+                Date:
+                <input type="date" name="date" class="form-control" value="<%=new Date().toISOString().split('T')[0]%>"/>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" class="btn btn-secondary btntype"> Search</button>
+              </div>
+            </div>
         </form>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-4 division"> 
+                <h1 class="text-center">Incomplete</h1>
                 <% if (events.length=== 0) { %>
                     <h1>To-do Not Found</h1>
                 <% } else { %>
-                <div class="row">
                   <% for (let event of events) { %>
                     <%
                     const date = new Date(event.date);
@@ -33,35 +32,78 @@
                     const endTime = new Date(event.endTime);
                     const endTimeString = endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
                     %>
-                    <div class=" shape col-md-2 col-sm-4 col-xs-12">
-                    <div class="card text-center <%= event.eventType %>">
-                    <div class="card-header font"> <%=event.eventType %> </div>
-                    <div class="card-body">
+                    <% if (!event.completed) { %>
+                    <div class="col-12 ">
+                     <div class="text-center rec <%= event.eventType %>">
+                        <div class="card-header font"> <%=event.eventType %></div>
+                        <div class="card-body">
                           <h5 class="card-title font"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
-                          <p class="card-title"><%= event.completed=== true? "Completed":"Incomplete"%></p>
-                          <!-- <% if (event.subtasks) { %>
-                            <ul style="list-style: none;">
-                            <% for (let list of event.subtasks){ %>
-                                <li>
-                                <input type="checkbox"> <span class="card-text"><%=list %></span>
-                                </li>
-                            <% } %>
+                          <div class="ulc">
+                            <ul class="list-group">
+                              <% if (event.subtasks) { %>
+                                <% for (let list of event.subtasks){ %>
+                                  <li class="list-group-item"><%=list%></li>
+                                <% } %>
+                              <% } %>
                             </ul>
-                          <% } %> -->
+                        </div>
+                      </div>
+                      <div class="card-footer text-body-secondary font">
+                          <%= dateString %> <br> <%= startTimeString %> To <%= endTimeString %>
+                      </div>
+                  </div>
+                </div>
+                  <% } %>
+                  <% } %>
+                  <%}%>
+            </div>
+             
+            <div class="col-4 division">
+              <div class="row">
+                <h1 class="text-center">Completed</h1>
+                <% if (events.length=== 0) { %>
+                  <h1>To-do Not Found</h1>
+              <% } else { %>
+                <% for (let event of events) { %>
+                  <%
+                  const date = new Date(event.date);
+                  const dateString = date.toLocaleDateString('en-US', { timeZone:'UTC', month: 'short', day: 'numeric', year: 'numeric' });
+                  const startTime = new Date(event.startTime);
+                  const startTimeString = event.startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                  const endTime = new Date(event.endTime);
+                  const endTimeString = endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
+                  %>
+                  <% if (event.completed) { %>
+                  <div class="col-12">
+                   <div class="text-center rec <%= event.eventType %>">
+                      <div class="card-header font"> <%=event.eventType %></div>
+                      <div class="card-body">
+                        <h5 class="card-title font"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
+                        <!-- <p class="card-title"><%= event.completed=== true? "Completed":"Incomplete"%></p> -->
+                        <div class="ulc">
+                          <ul class="list-group">
+                            <% if (event.subtasks) { %>
+                              <% for (let list of event.subtasks){ %>
+                                <li class="list-group-item"><%=list%></li>
+                              <% } %>
+                            <% } %>
+                          </ul>
+                      </div>
                     </div>
                     <div class="card-footer text-body-secondary font">
                         <%= dateString %> <br> <%= startTimeString %> To <%= endTimeString %>
                     </div>
+                </div>
                   </div>
-                </div>
-                  <% } %>
-                </div>
-              <%}%>
+                <% } %>
+                <% } %>
+                <%}%>
+              </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-3 division pomotodo">
              <%- include("../partial/pomotodo.ejs") %>
-          </div>
-         </div>
+            </div>
+        </div>
       </div>
  </main>
 </body>
