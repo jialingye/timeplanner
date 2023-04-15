@@ -17,8 +17,8 @@
       const endTime = new Date(event.endTime);
       const endTimeString = endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
    %>
-    <div class=" shape col-md-2 col-sm-4 col-xs-12">
-    <div class="card text-center <%= event.eventType %>">
+    <div class="shape col-lg-2 col-md-4 col-sm-6 col-xs-12">
+      <div class="card text-center <%= event.eventType %>">
         <div class="card-header font">
             <%=event.eventType %>
         </div>

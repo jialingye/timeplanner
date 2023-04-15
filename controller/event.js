@@ -151,7 +151,7 @@ router.put('/:id', async (req, res) => {
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,subtasks,completed}=req.body;
     const todo= await Event.findById(req.params.id);
-    todo.subtasks = req.body.newSubtasks  ? [...todo.subtasks, ... req.body.newSubtasks]:todo.subtasks;
+    req.body.newSubtasks = todo.subtasks === req.body.newSubtasks  ? [...todo.subtasks, ... req.body.newSubtasks]:todo.subtasks;
     
     // const start=new Date(`${date}${startTime}`)
     const start=(moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();

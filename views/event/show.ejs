@@ -36,7 +36,7 @@
       
           </div>
           <div class="btn-group" role="group">
-            <a href="/event/<%=event._id%>/edit" class="yellow">Edit</a>
+            <button type='submit' class='yellow'><a href="/event/<%=event._id%>/edit" class="yellow">Edit</a></button>
             <form action="/event/<%=event._id%>?_method=DELETE" method="POST">
               <button type="submit" class="brown">Delete</button>
             </form>

@@ -8,10 +8,10 @@
     <div class="container">
         <form class="row g-3" action="/event/<%-todo._id%>?_method=PUT" method="post">
         <fieldset>
-            <legend>Edit a To-do Item</legend>
-            <div class="form-check form-switch">
+            <legend class="font">Edit a To-do Item</legend>
+            <div class="form-check form-switch col-md-6">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="completed" <%=todo.completed ? "checked": "" %> />
-                <label class="form-check-label" for="flexSwitchCheckDefault">Important</label>
+                <label class="form-check-label" for="flexSwitchCheckDefault">Completed</label>
             </div>
             <div class="col-md-6">
                 <label>
@@ -56,8 +56,8 @@
                     <option value="MISC">MISC</option>
                 </select>
             </div>
-            <div class="col-md-12 task-container">
-              <label>
+            <div class="form-group col-md-12 task-container">
+              <label for="sub-tasks">
                 Sub-tasks:
                 <ul>
                     <div class="tasks">
@@ -71,7 +71,7 @@
                        
                     </div>
                 </ul>
-                        <input type="text" class="todotask form-control" name="subtask" placeholder="Add task">
+                        <input type="text" class="todotask form-control-sm form-control" name="subtask" placeholder="Add task">
                         <span><button id="add-task">Add Task</button></span>  
               </label>
             </div>

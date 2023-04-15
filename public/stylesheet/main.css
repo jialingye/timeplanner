@@ -15,13 +15,16 @@ header {
 }
 
 a{
-    color: darkslategrey
+    color: darkslategrey;
+    text-decoration: none;
 }
 .shape{
-    padding: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 .card {
-    padding: 20px;
+    padding: 10px;
     width: 280px;
     height: 250px;
     border: 5px solid transparent;
@@ -35,6 +38,10 @@ a{
     background-color: transparent;
 }
 
+.completed {
+    color: lightsteelblue;
+}
+
 .container-sm{
     border: 2px solid transparent;
     border-radius: 3em;
@@ -44,11 +51,12 @@ a{
     letter-spacing: 1px;
 }
 
-
 .line{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid grey;
 }
-
+.upperline {
+    border-top: 1px solid grey
+}
 .inputtask{
     display: flex;
     margin: 5px;
@@ -56,7 +64,10 @@ a{
 
 .task {
     display: inline-block;
-    margin-right: 10px;
+    margin: 10px;
+    background-color: #e6d3d6;
+    border: 3px solid #e6d3d6
+    
 }
 
 .inputtask li{
@@ -64,8 +75,6 @@ a{
     flex-direction: column;
     width: 100%;
     padding: 5px;
-    background-color: #c0bdae;
-    border-radius: 5px;
     font-size: 14px;
     color: #333;
 }
@@ -82,7 +91,8 @@ a{
 .division {
     border: 10px solid #e6d3d6;
     border-radius: 3em;
-    margin: 25px;
+    gap: 25px;
+    margin-top: 25px;
 }
 .ulc{
     display: flex;
@@ -94,6 +104,11 @@ a{
     margin: 10px;
 }
 
+.sub{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
 .pomotodo{
     height: 600px;
 }

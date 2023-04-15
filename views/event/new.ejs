@@ -4,73 +4,6 @@
 <body>
     <%- include("../partial/nav.ejs") %>
  <main>
-    <!-- <div class="container">
-        <form class="row g-3" action="/event" method="post">
-        <fieldset>
-            <legend>Create a To-do Item</legend>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="completed">
-                <label class="form-check-label" for="flexSwitchCheckDefault">completed</label>
-            </div>
-            <div class="col-md-6">
-                <label>
-                    Date:
-                    <input type="date" name="date" class="form-control" />
-                </label>
-            </div>
-            <div class="col-md-6">
-                <label>
-                Start Time:
-                <input type="time" name="startTime" class="form-control" step="60" />
-                </label>
-            </div>
-            <div class="col-md-6">
-                <label>
-                End Time:
-                <input type="time" name="endTime" class="form-control" step="60" />
-                </label>
-            </div>
-            <div class="col-md-6">
-                  <label class="form-label">
-                  To-Do Title:<input
-                  class="form-control form-select-lg mb-3"
-                  type="text"
-                  name="eventTitle"
-                  placeholder="enter event title"
-                />
-                 </label>
-            </div>
-            <div class="col-md-6">
-                To-Do Type:
-                <select name="eventType" class="form-select form-select-lg mb-3" aria-label="Default select example">
-                    <option value="work">WORK</option>
-                    <option value="study">STUDY</option>
-                    <option value="family">FAMILY</option>
-                    <option value="personal">PERSONAL</option>
-                    <option value="health">HEALTH</option>
-                    <option value="sleep">SLEEP</option>
-                    <option value="fun">FUN</option>
-                    <option value="misc">MISC</option>
-                </select>
-    
-            </div>
-            <div class="col-md-12 task-container">
-              <label>
-                Sub-tasks:
-                    <div class="task">
-                    <input type="text" class="todotask">
-                    <button id="add-task">Add Task</button>
-                    <ul class="task-add">
-
-                    </ul>
-                    </div>
-              </label>
-            </div>
-        </fieldset>
-        <input type="submit" value="Update" />
-        </form>
-    </div> -->
-    <main>
         <div class="container">
           <form class="row g-3" action="/event" method="post">
             <fieldset>
@@ -109,13 +42,14 @@
                 </select>
             <div class="form-group col-md-12 task-container">
                 <label for="sub-tasks">Sub-tasks:</label>
-                <div >
+                
                     <div class="inputtask">
                         <input type="text" id="sub-tasks" class="form-control form-control-sm todotask">
                         <button id="add-task" class="btn btn-sm btn-secondary">Add Task</button>
                     </div>
-                        <ul class="task-add"></ul>
-                </div>
+                    <div class="sub" >
+                      
+                    </div>
                 </div>
             </fieldset>
             <input type="submit" value="Update" class="btn green mt-3">
@@ -129,12 +63,12 @@
         event.preventDefault();
         const taskValue = $('.todotask').val();
         const newTask = '<li class="task"><input type="hidden" name="subtasks" value=" '+ taskValue +' ">' + taskValue + '<button class="delete btn-close"></button></li>';
-        $('.task-add').append(newTask);
+        $('.sub').append(newTask);
         subtasks.push(taskValue);
 
         $('.todotask').val('')
     });
-    $('.delete').on('click', function(event){
+    $('.sub').on('click','.delete', function(event){
         event.preventDefault();
         const index=subtasks.indexOf($(this).val());
         if(index> -1){

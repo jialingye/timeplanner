@@ -30,7 +30,9 @@ app.get('/monthly', async(req,res)=>{
             title: event.eventTitle,
             start: event.startTime.toISOString(),
             end: event.endTime.toISOString(),
+            url: `event/${event._id}`,
             allDay:false,
+            classNames: `${event.eventType} ${event.completed ? "completed": ""}`
         }
     })
     const eventDataJson=JSON.stringify(eventData)
@@ -43,7 +45,9 @@ app.get('/weekly',async(req,res)=>{
             title: event.eventTitle,
             start: event.startTime.toISOString(),
             end: event.endTime.toISOString(),
+            url: `event/${event._id}`,
             allDay:false,
+            classNames: `${event.eventType} ${event.completed ? "completed": ""}`
         }
     })
     const eventDataJson=JSON.stringify(eventData)
@@ -56,7 +60,9 @@ app.get('/daily',async(req,res)=>{
             title: event.eventTitle,
             start: event.startTime.toISOString(),
             end: event.endTime.toISOString(),
+            url: `event/${event._id}`,
             allDay:false,
+            classNames: `${event.eventType} ${event.completed ? "completed": ""}`
         }
     })
     const eventDataJson=JSON.stringify(eventData)
