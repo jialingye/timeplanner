@@ -149,10 +149,12 @@ router.delete('/:id', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
     req.body.completed=req.body.completed==="on"? true:false;
-    const {eventTitle,eventType,date,startTime,endTime,subtasks,completed}=req.body;
+    const {eventTitle,eventType,date,startTime,endTime,subtasks, completed}=req.body;
     const todo= await Event.findById(req.params.id);
-    req.body.newSubtasks = todo.subtasks === req.body.newSubtasks  ? [...todo.subtasks, ... req.body.newSubtasks]:todo.subtasks;
-    
+    console.log(todo.subtasks)
+    todo.subtasks = req.body.newSubtasks  ? [...todo.subtasks, ... req.body.newSubtasks]:todo.subtasks;
+    console.log(todo.subtasks)
+
     // const start=new Date(`${date}${startTime}`)
     const start=(moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
     // console.log('start',moment.tz(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
