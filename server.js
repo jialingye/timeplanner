@@ -5,6 +5,7 @@ const app=express();
 const {PORT,DATABASE_URL}=require('./config');
 const methodOverride=require('method-override');
 
+
 //middleware
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())

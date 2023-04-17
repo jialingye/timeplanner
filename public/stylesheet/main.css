@@ -79,6 +79,9 @@ a{
     color: #333;
 }
 
+.noline {
+    border: 1px solid transparent;
+}
 .delete {
     font-size: 14px;
     padding: 0.25rem 0.5rem;
@@ -87,6 +90,7 @@ a{
 .btntype{
     margin-top: 25px;
 }
+
 
 .division {
     border: 10px solid #e6d3d6;

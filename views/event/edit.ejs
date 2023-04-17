@@ -63,7 +63,7 @@
                 <div class="form-group task-container col-6">
 
                     <div class="inputtask">
-                       <input type="text" id="sub-tasks" name="subtask" class="form-control form-control-sm todotask">
+                       <input type="text" id="sub-tasks" class="form-control form-control-sm todotask">
                         <button id="add-task" class="btn btn-sm btn-secondary">Add Task</button>
                     </div> 
                     <div class="sub">
@@ -96,12 +96,14 @@
         $('#sub-tasks').val('');
     });
     $('.sub').on('click','.delete', function(event){
-            event.preventDefault();
-            const index=subtasks.indexOf($(this).val());
-            console.log(index)
-            todo.subtasks.splice(index,1);
-            $(this).closest('.task').remove();
-            console.log(todo.subtasks)
+        event.preventDefault();
+        const taskValue = $(this).closest('.task').find('input').val();
+        console.log(taskValue)
+        const index=subtasks.indexOf(taskValue);
+        console.log(index)
+        todo.subtasks.splice(index,1);
+        $(this).closest('.task').remove();
+        console.log(todo.subtasks)
     })
 
 

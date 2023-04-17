@@ -43,7 +43,7 @@
                             <ul class="list-group">
                               <% if (event.subtasks) { %>
                                 <% for (let list of event.subtasks){ %>
-                                  <li class="list-group-item"><%=list%></li>
+                                  <li class="list-group-item noline <%=event.eventType%>"><%=list%></li>
                                 <% } %>
                               <% } %>
                             </ul>
@@ -87,7 +87,7 @@
                           <ul class="list-group">
                             <% if (event.subtasks) { %>
                               <% for (let list of event.subtasks){ %>
-                                <li class="list-group-item"><%=list%></li>
+                                <li class="list-group-item noline <%=event.eventType%>"><%=list%></li>
                               <% } %>
                             <% } %>
                           </ul>
@@ -105,9 +105,13 @@
             </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pomotodo">
-            <div class="division">
-             <%- include("../partial/pomotodo.ejs") %>
-            </div>
+              <div class="division">
+                <h1 class="text-center">Motivation</h1>
+                <p><%= bucketlist.item %></p> 
+                </div>
+              <div class="division">
+              <%- include("../partial/pomotodo.ejs") %>
+              </div>
             </div>
         </div>
       </div>

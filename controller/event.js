@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router= express.Router();
 const moment=require('moment-timezone');
+const {API}=require('../config');
 
 
 //import the model
@@ -75,19 +76,34 @@ router.get('/type', async(req,res) =>{
 })
 
 router.get('/date', async(req,res) =>{
+
     const date = req.query.date ;
     const query={};
     if(date){
       query.date = date;
     }
+
+    const myHeaders = new Headers();
+    myHeaders.append("X-API-KEY", API);
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
     try{
+      const api=await fetch(`https://api.api-ninjas.com/v1/bucketlist`, requestOptions)
+      const bucketlist = await api.json();
       const events=await Event.find(query);
-      res.render ('type/date', {events});
+      res.render ('type/date', {events, bucketlist});
     } catch (err) {
       console.error(err);
       res.status(500).send('server error')
     }
   })
+
+
+
 
 //Seed
 router.get('/seed',async(req,res)=>{
@@ -163,10 +179,9 @@ router.put('/:id', async (req, res) => {
 
     // const start=new Date(`${date}T${startTime}:00.000Z`);
     // const end=new Date(`${date}T${endTime}:00.000Z`);
-    // console.log(start, end )
-    
+    // console.log(start, end )    
 await todo.save();
-console.log(start,end)
+
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
         eventType,
