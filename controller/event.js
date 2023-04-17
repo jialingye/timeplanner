@@ -193,7 +193,7 @@ await todo.save();
     }, {
         new: true
     })
-    res.redirect('/event');
+    res.redirect(`/event/${req.params.id}`);
 });
 
 module.exports = router;

@@ -50,9 +50,19 @@ a{
     max-width: 60%;
     letter-spacing: 1px;
 }
+.center {
+    margin-top: 100px;
+    margin-left: 25%;
 
+}
 .line{
     border-bottom: 1px solid grey;
+}
+
+.logout{
+    border: 5x solid lightgoldenrodyellow;
+    background-color: #e6d4c8;
+    border-radius: 2em;
 }
 .upperline {
     border-top: 1px solid grey
@@ -119,7 +129,7 @@ a{
 .yellow {
     background-color: #fee1a7;
     border: 2ex solid transparent;
-    border-radius: 1em;
+    border-radius: 2em;
     padding: 2px;
 
 }

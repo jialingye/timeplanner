@@ -1,4 +1,4 @@
-const { mongoose } = require('../db/connection');
+const { mongoose } = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     email: {

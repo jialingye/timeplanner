@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <%-include('../partial/head.ejs')%>
@@ -40,56 +41,39 @@
     </div>
   </nav>
   <div class="container">
-    
-    <div class="col-6 center">
-      <form method="POST" action="/user/login">
-        <h1 class="font">Log In</h1>
-        <br>
-        
-        <div class="row mb-3">
-         <label for="email" class="col-sm-2 col-form-label">Email:</label>
-          <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" name="email"><br><br>
-        </div>
-      </div>
-  
-        <div class="row mb-3">
-          <label for="password" class="col-sm-2 col-form-label">Password:</label>
-          <div class="col-sm-10 password-wrapper">
-            <div class="row">
-              <div class="col-sm-10">
-                <input type="password" id="password" class="form-control" name="password">
-              </div>
-              <div class="col-sm-2">
-                <button type="button" class="btn btn-secondary toggle-password">Show</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="d-grid gap-2">
-          <button type="submit" class="btn yellow toggle-password">Log In </button>
-        </div>
-        
-      </form>
-    </div>
-  
-  </div>
 
-      
-      <script>
-        var togglePassword = document.querySelector(".toggle-password");
-        var passwordField = document.getElementById("password");
-      
-        togglePassword.addEventListener("click", function() {
-          if (passwordField.type === "password") {
-            passwordField.type = "text";
-            togglePassword.textContent = "Hide";
-          } else {
-            passwordField.type = "password";
-            togglePassword.textContent = "Show";
-          }
-        });
-      </script>
+    <div class="col-6 center">
+    
+    <form method="POST" action="/user/signup">
+        <h1 class="font">Signup for an account</h1>
+        <br>
+        <div class="row mb-3">
+            <label for="email">Email:</label>
+            <div class="col-sm-10">
+                <input type="text" name="email" id="email" class="form-control" placeholder="something@gmail.com">
+            </div>
+       </div>
+
+       <div class="row mb-3">
+            <label for="username">Username:</label>
+            <div class="col-sm-10">
+                <input type="text" name="username" id="username" placeholder="abc123" class="form-control">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="password">Password:</label>
+            <div class="col-sm-10">
+                <input type="text" name="password" id="password" class="form-control">
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 col-sm-10">
+            <button type="submit" class="btn red">Sign Up </button>
+          </div>
+        
+    </form>
+    </div>
+    </div>
 </body>
 </html>
