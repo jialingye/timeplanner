@@ -36,20 +36,14 @@
                   <option value="FAMILY">FAMILY</option>
                   <option value="PERSONAL">PERSONAL</option>
                   <option value="HEALTH">HEALTH</option>
-                  <option value="SLEEP">SLEEP</option>
-                  <option value="FUN">FUN</option>
+                  <option value="FITNESS">FITNESS</option>
+                  <option value="LEISURE">LEISURE</option>
                   <option value="MISC">MISC</option>
                 </select>
-            <div class="form-group col-md-12 task-container">
-                <label for="sub-tasks">Sub-tasks:</label>
-                
-                    <div class="inputtask">
-                        <input type="text" id="sub-tasks" class="form-control form-control-sm todotask">
-                        <button id="add-task" class="btn btn-sm btn-secondary">Add Task</button>
-                    </div>
-                    <div class="sub" >
-                      
-                    </div>
+               <div class="form-group col-md-12 task-container">
+                  <div class="form-floating">
+                    <textarea class="form-control" name="subtasks" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">subtasks:
                 </div>
             </fieldset>
             <input type="submit" value="Update" class="btn green mt-3">
@@ -57,7 +51,7 @@
      </div>
 </main>
 </body>
-<script>
+<!-- <script>
    const subtasks=[];
     $('#add-task').click(function(event) {
         event.preventDefault();
@@ -76,5 +70,5 @@
         }
         $(this).closest('.task').remove();
     })
-</script>
+</script> -->
 </html>

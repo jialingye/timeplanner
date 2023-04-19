@@ -5,7 +5,7 @@
 }
 
 body {
-   background-color: f6f0f3; 
+   
    
 }
 
@@ -55,6 +55,11 @@ a{
     margin-left: 25%;
 
 }
+
+.dateheight{
+    height: 48px;
+}
+
 .line{
     border-bottom: 1px solid grey;
 }
@@ -104,10 +109,17 @@ a{
 
 .division {
     border: 10px solid #e6d3d6;
-    border-radius: 3em;
+    border-radius: 2em;
+    gap: 25px;
+    margin-top: 5px;
+}
+.division2 {
+    border: 10px solid #d8dfe9;
+    border-radius: 0.5em;
     gap: 25px;
     margin-top: 25px;
 }
+
 .ulc{
     display: flex;
     justify-content: center;
@@ -128,15 +140,26 @@ a{
 }
 .yellow {
     background-color: #fee1a7;
-    border: 2ex solid transparent;
+    border: 2px solid transparent;
     border-radius: 2em;
     padding: 2px;
 
 }
+.btn-delete {
+    margin-left: 20px;
+    width: 100px;
+    border: 10px double palevioletred;
+    background-color: palevioletred;
+}
+.btn-edit {
+    width: 100px;
+    border: 10px double #fee1a7;
+    background-color: #fee1a7;
+}
 
 .brown {
     background-color: #d2b8aa;
-    border: 2ex solid transparent;
+    border: 2px solid transparent;
     border-radius: 2em; 
     width: 150px;
     text-align: center;
@@ -144,27 +167,43 @@ a{
 
 .blue {
     background-color: #abb4c3;
-    border: 2ex solid transparent;
+    border: 2px solid transparent;
+    border-radius: 2em; 
+    width: 150px;
+    text-align: center;
+}
+.babyblue{
+    background-color: lightblue;
+    border: 2px solid transparent;
+    border-radius: 2em; 
+    width: 150px;
+    text-align: center;
+}
+.mint {
+    background-color: #dfefe5;
+    border: 2px solid transparent;
     border-radius: 2em; 
     width: 150px;
     text-align: center;
 }
 
 .green {
-    background-color: #92a4a4;
+    background-color: #abc3b8;
 
 }
 
 .red{
     background-color: #e6d3d6;
-    border: 2ex solid transparent;
+    border: 2px solid transparent;
     border-radius: 2em; 
+    width: 150px;
+    text-align: center;
 }
 
 .grey {
     background-color: #ecdcc3;
     width: 150px;
-    border: 2ex solid transparent;
+    border: 2px solid transparent;
     border-radius: 2em;
     text-align: center;
 }
@@ -174,22 +213,22 @@ a{
 }
 
 .STUDY {
-    background-color:#bfbdae;
+    background-color:#a4bdaa;
 }
 
-.SLEEP {
-    background-color:#a99b9a;
+.FITNESS{
+    background-color:#d3b3b5;
 }
 
 .FAMILY {
-    background-color: #f4d5d2; 
+    background-color: #e8c4a3; 
 }
 .PERSONAL{
-    background-color: #ecdcc3;
+    background-color: #f4e5bc;
 }
 
-.FUN {
-    background-color: #cdae9b; 
+.LEISURE {
+    background-color: #dfefe5; 
 }
 
 .WORK {

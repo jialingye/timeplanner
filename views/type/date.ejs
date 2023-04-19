@@ -42,10 +42,8 @@
                           <div class="ulc">
                             <ul class="list-group">
                               <% if (event.subtasks) { %>
-                                <% for (let list of event.subtasks){ %>
-                                  <li class="list-group-item noline <%=event.eventType%>"><%=list%></li>
+                                <li class="list-group-item noline <%=event.eventType%>" style="white-space: pre-line;"><%=event.subtasks%></li>
                                 <% } %>
-                              <% } %>
                             </ul>
                         </div>
                       </div>
@@ -82,17 +80,15 @@
                       <div class="card-header line font"> <%=event.eventType %></div>
                       <div class="card-body">
                         <h5 class="card-title font"><a href="/event/<%=event._id%>"><%= event.eventTitle%></a></h5>
-                        <!-- <p class="card-title"><%= event.completed=== true? "Completed":"Incomplete"%></p> -->
                         <div class="ulc">
                           <ul class="list-group">
                             <% if (event.subtasks) { %>
-                              <% for (let list of event.subtasks){ %>
-                                <li class="list-group-item noline <%=event.eventType%>"><%=list%></li>
+                                <li class="list-group-item noline <%=event.eventType%>" style="white-space: pre-line;"><%=event.subtasks%></li>
                               <% } %>
-                            <% } %>
+                            
                           </ul>
                       </div>
-                    </div>
+                      </div>
                     <div class="card-footer text-body-secondary upperline font">
                         <%=dateString %> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;<%= startTimeString %> To <%= endTimeString %>
                     </div>

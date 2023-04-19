@@ -31,8 +31,8 @@ const eventSchema = new Schema({
         default: ""
       },
     subtasks:{
-      type: [String],
-      default: []
+      type: String,
+      default: ""
     },
     completed:{
         type: Boolean,
@@ -40,6 +40,6 @@ const eventSchema = new Schema({
     }
 })
 
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.model('Event', eventSchema, "event");
 
 module.exports = Event;

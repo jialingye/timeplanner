@@ -13,15 +13,10 @@ const eventSeed=require('../db/eventSeed');
 router.post('/',async(req,res)=>{
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,completed,subtasks}=req.body;
-    // const subtaskArr = subtasks.map((task)=>{
-    //     return {subtask: task}
-    // })
+   
     const start=(moment(`${date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
-    // console.log('start',moment.tz(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
-    // console.log('end',moment.tz(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
     const end=moment(`${date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
-    // const start=`${date}T${startTime}:00.000Z`;
-    // const end=`${date}T${endTime}:00.000Z`;
+    
     try{
         const todoEvent= await Event.create({
             date,
@@ -68,7 +63,7 @@ router.get('/type', async(req,res) =>{
 
   try{
     const events=await Event.find(query);
-    res.render ('type/eventtype', {events});
+    res.render ('type/search', {events});
   } catch (err) {
     console.error(err);
     res.status(500).send('server error')
@@ -121,6 +116,69 @@ router.get('/seed',async(req,res)=>{
               res.send('Error message: ' + err);
             }
 })
+// analyze
+router.get('/analysis', async(req,res)=>{
+  try{
+    const today = new Date();
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay());
+    const startOfMonth= new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const weekly = await Event.find({
+      date: {$gte: startOfWeek, $lte: today},
+      completed: true
+    })
+    const monthly = await Event.find({
+      date: {$gte: startOfMonth, $lte: today},
+      completed: true
+    })
+    const daily = await Event.find({
+      date: {$gte: today, $lte: new Date(today.getFullYear(), today.getMonth(), today.getDate()+1)},
+      completed: true
+    })
+    const completedEvents = await Event.find({
+      completed: true
+    })
+
+    let typeCount={};
+    for( let event of completedEvents){
+      const eventType = event.eventType 
+      typeCount[eventType]=(typeCount[eventType]||0)+1;
+    }
+  
+    let monthlyTypeCount={};
+    for(let event of monthly){
+      const eventType = event.eventType;
+      monthlyTypeCount[eventType] = (monthlyTypeCount[eventType]|| 0) + 1;
+    }
+
+    let weeklyTypeCount={};
+    for(let event of weekly){
+      const eventType = event.eventType;
+      weeklyTypeCount[eventType] = (weeklyTypeCount[eventType]|| 0) + 1;
+    }
+
+    let dailyTypeCount={};
+    for(let event of daily){
+      const eventType = event.eventType;
+      dailyTypeCount[eventType] = (dailyTypeCount[eventType]|| 0) + 1;
+    }
+  console.log(daily) 
+console.log(dailyTypeCount)
+    res.render('type/analysis', {
+      weekly: weekly.length,
+      monthly: monthly.length,
+      daily: daily.length,
+      weeklyType: weeklyTypeCount,
+      monthlyType: monthlyTypeCount,
+      dailyType: dailyTypeCount,
+      typeCount: typeCount
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+
+})
 
 // New
 router.get('/new',(req,res)=>{
@@ -153,6 +211,7 @@ router.get('date/:date', async (req, res) => {
 // Edit
 router.get('/:id/edit', async(req,res)=>{
     const todo = await Event.findById(req.params.id)
+
     res.render('event/edit.ejs',{todo})
 });
 
@@ -166,22 +225,10 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,subtasks, completed}=req.body;
-    const todo= await Event.findById(req.params.id);
-    console.log(todo.subtasks)
-    todo.subtasks = req.body.newSubtasks  ? [...todo.subtasks, ... req.body.newSubtasks]:todo.subtasks;
-    console.log(todo.subtasks)
 
-    // const start=new Date(`${date}${startTime}`)
     const start=(moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
-    // console.log('start',moment.tz(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
-    // console.log('end',moment.tz(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A','America/Hawaii').toDate())
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
-
-    // const start=new Date(`${date}T${startTime}:00.000Z`);
-    // const end=new Date(`${date}T${endTime}:00.000Z`);
-    // console.log(start, end )    
-await todo.save();
-
+   
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
         eventType,

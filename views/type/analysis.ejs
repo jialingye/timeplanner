@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partial/head.ejs") %>
+<body>
+    <%- include("../partial/nav.ejs") %>
+    <main>
+        <div class="container-fluid">
+            <div class="col-10">
+                <canvas id="dailyChart">
+                </canvas>
+            </div>
+            <div class="col-10">
+                <canvas id="weeklyChart">
+                </canvas>
+            </div>
+            <div class="col-10">
+                <canvas id="monthlyChart">
+                </canvas>
+            </div>
+            <div class="col-10">
+                <canvas id="allChart">
+                </canvas>
+            </div>
+            
+            
+        </div>
+    </main>
+    <script>
+        /////////////////Data/////////////////////////////////////////
+        const dailyTypeData = <%- JSON.stringify(dailyType) %>;
+        console.log(dailyTypeData)
+        const weeklyTypeData = <%- JSON.stringify(weeklyType) %>;
+        const monthlyTypeData = <%- JSON.stringify(monthlyType) %>;
+        const typeData = <%- JSON.stringify(typeCount) %>;
+
+        const eventTypeClass = {
+            WORK: '#d4dbe5',
+            STUDY: '#a4bdaa',
+            FAMILY: '#e8c4a3',
+            PERSONAL: '#f4e5bc',
+            HEALTH: '#d1b6cc',
+            FITNESS: '#d3b3b5',
+            MISC: '#e6d4c8',
+            LEISURE: '#dfefe5'
+        }
+                //////////////////Daily analysis///////////////////////////////
+        const dailyLabels = [];
+        const dailyValues = [];
+        for (const key in dailyTypeData){
+            dailyLabels.push(key);
+            dailyValues.push(dailyTypeData[key]);
+        }
+      
+        const ctxDay = document.getElementById('dailyChart').getContext('2d');
+        const dailyChart = new Chart(ctxDay, {
+          type: 'bar',
+          data: {
+            labels: dailyLabels,
+            datasets: [{
+              label: 'daily task count by event type',
+              data: dailyTypeData,
+              backgroundColor: dailyLabels.map(label => eventTypeClass[label]),
+              borderColor: dailyLabels.map(label => eventTypeClass[label]),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        
+        //////////////////weekly analysis///////////////////////////////
+        const weeklyLabels = [];
+        const weeklyValues = [];
+        for (const key in weeklyTypeData){
+            weeklyLabels.push(key);
+            weeklyValues.push(weeklyTypeData[key]);
+        }
+      
+        const ctxWeek = document.getElementById('weeklyChart').getContext('2d');
+        const weeklyChart = new Chart(ctxWeek, {
+          type: 'bar',
+          data: {
+            labels: weeklyLabels,
+            datasets: [{
+              label: 'Weekly task count by event type',
+              data: weeklyTypeData,
+              backgroundColor: weeklyLabels.map(label => eventTypeClass[label]),
+              borderColor: weeklyLabels.map(label => eventTypeClass[label]),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        ///////monthly analysis/////////////////////////////////////////////////////////
+        const monthlyLabels = Object.keys(monthlyTypeData);
+        const monthlyValues = Object.values(monthlyTypeData);
+
+        const ctxMonth = document.getElementById('monthlyChart').getContext('2d');
+        const monthlyChart = new Chart(ctxMonth, {
+          type: 'bar',
+          data: {
+            labels: monthlyLabels,
+            datasets: [{
+              label: 'Monthly task count by event type',
+              data: monthlyTypeData,
+              backgroundColor: monthlyLabels.map(label => eventTypeClass[label]),
+              borderColor: monthlyLabels.map(label => eventTypeClass[label]),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        ///////////////////////////////Overall///////////////////////////////////
+        const totalLabels = Object.keys(typeData);
+        const totalValues = Object.values(typeData);
+
+        const ctxAll = document.getElementById('allChart').getContext('2d');
+        const totalChart = new Chart(ctxAll, {
+          type: 'bar',
+          data: {
+            labels: totalLabels,
+            datasets: [{
+              label: 'Total task count by event type',
+              data: typeData,
+              backgroundColor: totalLabels.map(label => eventTypeClass[label]),
+              borderColor: totalLabels.map(label => eventTypeClass[label]),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+</body>
+</html>

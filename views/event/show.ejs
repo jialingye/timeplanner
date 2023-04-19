@@ -36,9 +36,9 @@
       
           </div>
           <div class="btn-group" role="group">
-            <button type='submit' class='btn'><a href="/event/<%=event._id%>/edit" class="yellow">Edit</a></button>
+            <button type='submit' class='btn btn-edit'><a href="/event/<%=event._id%>/edit">Edit</a></button>
             <form action="/event/<%=event._id%>?_method=DELETE" method="POST">
-              <button type="submit" class="btn brown">Delete</button>
+              <button type="submit" class="btn btn-delete">Delete</button>
             </form>
           </div>
         </div>
@@ -48,14 +48,12 @@
             <br>
             <h4 class="font">Subtasks:</h4>
             <ul class="list-group">
-              <% if (event.subtasks) { %>
-                <% for (let list of event.subtasks){ %>
-                  <li class="list-group-item"><%=list%></li>
-                <% } %>
-              <% } %>
+              <li class="list-group-item" style="white-space: pre-line;">
+                <%= event.subtasks %>
+                  </li>
+              
+            </div>
             </ul>
-            
-          </div>
         </div>
       </div>
     </div>

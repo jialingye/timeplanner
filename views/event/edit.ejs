@@ -3,7 +3,6 @@
     <%- include("../partial/head.ejs") %>
 <body>
     <%- include("../partial/nav.ejs") %>
-
 <main>
     <div class="container">
         <form class="row g-3" action="/event/<%-todo._id%>?_method=PUT" method="post">
@@ -51,8 +50,8 @@
                     <option value="FAMILY">FAMILY</option>
                     <option value="PERSONAL">PERSONAL</option>
                     <option value="HEALTH">HEALTH</option>
-                    <option value="SLEEP">SLEEP</option>
-                    <option value="FUN">FUN</option>
+                    <option value="FITNESS">FITNESS</option>
+                    <option value="LEISURE">LEISURE</option>
                     <option value="MISC">MISC</option>
                 </select>
             </div>
@@ -61,51 +60,19 @@
                     Sub-tasks:
                 </label>
                 <div class="form-group task-container col-6">
-
-                    <div class="inputtask">
-                       <input type="text" id="sub-tasks" class="form-control form-control-sm todotask">
-                        <button id="add-task" class="btn btn-sm btn-secondary">Add Task</button>
-                    </div> 
-                    <div class="sub">
-                        <% todo.subtasks.forEach(function(list){ %>
-                            <li class="task">
-                                <input type="text" name="subtask" value="<%=list%>" class="form-control-sm" >
-                                <button class="delete btn-close"></button>
-                            </li>
-                            
-                        <%})%>
+                    <div class="form-floating">
+                        <textarea class="form-control" name="subtasks" value="<%=todo.subtasks%>" id="floatingTextarea2" style="height: 200px"><%=todo.subtasks%></textarea>
+                        <label for="floatingTextarea2">subtasks:</label>
                     </div>
                 </div>
             </div>
         </fieldset>
         <input type="submit" value="Update" />
         </form>
+        <script>
+            console.log(todo.subtasks)
+        </script>
     </div>
  </main>
 </body>
-<script>
-    const todo = <%- JSON.stringify(todo) %> ;
-    const subtasks=todo.subtasks;  
-    $('#add-task').click(function(event) {
-        event.preventDefault();
-        const taskValue = $('#sub-tasks').val();
-        const newTask = `<li class="task"><input type="hidden" name="newSubtasks" value="${taskValue}">${taskValue}<button class="delete btn-close"></button></li></div>`;
-        $('.sub').append(newTask);
-        subtasks.push(taskValue);
-        console.log(subtasks)
-        $('#sub-tasks').val('');
-    });
-    $('.sub').on('click','.delete', function(event){
-        event.preventDefault();
-        const taskValue = $(this).closest('.task').find('input').val();
-        console.log(taskValue)
-        const index=subtasks.indexOf(taskValue);
-        console.log(index)
-        todo.subtasks.splice(index,1);
-        $(this).closest('.task').remove();
-        console.log(todo.subtasks)
-    })
-
-
-</script>
 </html>
