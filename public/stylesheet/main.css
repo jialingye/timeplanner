@@ -56,6 +56,10 @@ a{
 
 }
 
+.ccenter{
+    margin: 10%;
+}
+
 .dateheight{
     height: 48px;
 }
@@ -85,6 +89,9 @@ a{
     
 }
 
+.total{
+    background-color: #fcf3bc;
+}
 .inputtask li{
     display: flex;
     flex-direction: column;
@@ -93,7 +100,9 @@ a{
     font-size: 14px;
     color: #333;
 }
-
+.margin-top{
+    margin-top: 40px;
+}
 .noline {
     border: 1px solid transparent;
 }

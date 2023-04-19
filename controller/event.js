@@ -120,8 +120,11 @@ router.get('/seed',async(req,res)=>{
 router.get('/analysis', async(req,res)=>{
   try{
     const today = new Date();
-    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay());
-    const startOfMonth= new Date(today.getFullYear(), today.getMonth(), 1);
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay()-1);
+    const startOfMonth= new Date(today.getFullYear(), today.getMonth(), 0);
+   
+    const sunday=new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay());
+    const firstDate= new Date(today.getFullYear(), today.getMonth(), 1);
 
     const weekly = await Event.find({
       date: {$gte: startOfWeek, $lte: today},
@@ -132,7 +135,7 @@ router.get('/analysis', async(req,res)=>{
       completed: true
     })
     const daily = await Event.find({
-      date: {$gte: today, $lte: new Date(today.getFullYear(), today.getMonth(), today.getDate()+1)},
+      date: {$gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()-1), $lte: today},
       completed: true
     })
     const completedEvents = await Event.find({
@@ -162,16 +165,18 @@ router.get('/analysis', async(req,res)=>{
       const eventType = event.eventType;
       dailyTypeCount[eventType] = (dailyTypeCount[eventType]|| 0) + 1;
     }
-  console.log(daily) 
-console.log(dailyTypeCount)
+
     res.render('type/analysis', {
+      sunday: sunday,
+      firstDate: firstDate,
       weekly: weekly.length,
       monthly: monthly.length,
       daily: daily.length,
       weeklyType: weeklyTypeCount,
       monthlyType: monthlyTypeCount,
       dailyType: dailyTypeCount,
-      typeCount: typeCount
+      typeCount: typeCount,
+      totalTasks: completedEvents.length
     })
   } catch (err) {
     console.error(err);
