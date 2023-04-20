@@ -127,6 +127,7 @@ a{
     border-radius: 0.5em;
     gap: 25px;
     margin-top: 25px;
+    min-height: 400px;
 }
 
 .ulc{
@@ -153,6 +154,13 @@ a{
     border-radius: 2em;
     padding: 2px;
 
+}
+.signup {
+    background-color: #e6d3d6;
+    border: 2px solid transparent;
+    border-radius: 2em;
+    padding: 2px;
+    margin-top: 30px;
 }
 .btn-delete {
     margin-left: 20px;

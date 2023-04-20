@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-7">
-                    <form id="question-form" action="/animal" method="GET">
+                    <form id="question-form" action="/ai" method="GET">
                         <div class="col-12">
                             <h1 class="font">Question:</h1>
                             <br>
@@ -24,45 +24,67 @@
                 </div>
                 <div class="col-12 col-md-5 ">
                     <h1 class="font"> Prompts </h1>
-                    <div class="col-12 division2">
-                        <h5> Daily Planning</h5>
-                            <p>
-                                Act as a productivity coach. I will provide the goal of today, the meetings today, the events today. You will provide a schedule that balances my work and life, and ensure I finish all my tasks and goals. <br>
-                        Goal: 
-                        <br>[1.Finish user growth high level strategy for my side project]
-                        <br>[2.Read one industry report]
-                        <br>Meeting:
-                        <br>[14:00 - 14:30 - work meeting with A]
-                        <br>[14:30 - 15:00 - work meeting with B]
-                        <br>[20:00 - 21:00 - work meeting with C]
-                        <br>Event:
-                        <br>[15:00 - 17:00 Golf with friends]
-                            </p>
+                    <div class="col-12">
+                        <br>
+                        
+                        <select id="select-option" class="form-select form-select-lg mb-3" aria-label="Default select example">
+                            <option selected>Suggestion</option>
+                            <option value="week">Weekly Planning</option>
+                            <option value="day">Daily Planning</option>
+                            <option value="shop">Shopping List</option>
+                            <option value="study">Study Plan</option>
+                          </select>
                     </div>
-                    <div class="col-12 division2">
-                        <h5>Study Plan</h5>
-                        <p>
-                            Act as a coding tutor that creates study plans to help people learn to code. You will be provided with the goal of the student, their time commitment, and resource preferences. You will create a study plan with timelines and links to resources. Only include relevant resources because time is limited. 
-                            <br>My request: [I want to become a frontend developer but I do not know how to code. I can study 10 hours per week and only want video resources. I want to learn to code in React which is javascript framework. Create a study plan for me]
-                        </p>
+                    <div class="col-12 division2" id="text-display">
+
+
                     </div>
-                    <div class="col-12 division2">
-                        <h5>Shopping List</h5>
-                        <p>
-                            I want you to act as a virtual meal planning and grocery list assistant. The user is a busy professional who wants to plan out their meals for the upcoming week. Provide them with a meal plan for 2 days, including breakfast, lunch, and dinner options, along with a corresponding shopping list. Be sure to include portion sizes and any special dietary considerations that the user may have.
-                        </p>
-                    </div>
-                    <div class="col-12 division2">
-                        <h5>Weekly Plan</h5>
-                        <p>
-                            You are a [software engineering mentor] and productivity coach now.  I will set a goal for the week and  you help me to break it down into smaller, achievable tasks each day. My goal this week is to [finish up my node.js planner project. I want to add authetication, calendar, search feature and analysis feature.] 
-                        </p>
-                    </div>
+      
                 </div>
             </div>
         </div>
      <script>
-        $('.collapse').collapse()
+        $(document).ready(function(){
+            $('#select-option').change(function(){
+                const selectedOption = $(this).val();
+
+                if(selectedOption === 'week') {
+                    $('#text-display').html(`
+                    You are a [software engineering mentor] and productivity coach now.  I will set a goal for the week and  you help me to break it down into smaller, achievable tasks each day. 
+                    <br>My goal this week is to 
+                    <br>1. [add authetication, calendar, search feature and analysis feature].
+                    <br>2. [workout 30 mins each day on my leg, upperbody, and cardio]
+                    <br>3. [watch CS61a 10 hours]
+                    <br>4. [read 200 pages novel]
+                    <br>5. [work on my diamond painting 3 days a week]
+                    `)
+                } else if (selectedOption === 'day'){
+                    $('#text-display').html(`
+                                Act as a productivity coach. I will provide the goal of today, the meetings today, the events today. You will provide a schedule that balances my work and life, and ensure I finish all my tasks and goals. <br>
+                                Goal: 
+                                <br>[1.Finish user growth high level strategy for my side project]
+                                <br>[2.Read one industry report]
+                                <br>Meeting:
+                                <br>[14:00 - 14:30 - work meeting with A]
+                                <br>[14:30 - 15:00 - work meeting with B]
+                                <br>[20:00 - 21:00 - work meeting with C]
+                                <br>Event:
+                                <br>[15:00 - 17:00 Golf with friends]
+                            `)
+                } else if (selectedOption === 'shop'){
+                    $('#text-display').html(
+                        `I want you to act as a virtual meal planning and grocery list assistant. The user is a busy professional who wants to plan out their meals for the upcoming week. Provide them with a meal plan for 2 days, including breakfast, lunch, and dinner options, along with a corresponding shopping list. Be sure to include portion sizes and any special dietary considerations that the user may have.
+                        <br> My calories intake: [1500 cal]
+                        <br> My allegies: [peanut, shrimp]
+                        <br> I want to eat: [greek food]
+                    `)
+                } else if (selectedOption === 'study'){
+                    $('#text-display').html(`
+                      Act as a coding tutor that creates study plans to help people learn to code. You will be provided with the goal of the student, their time commitment, and resource preferences. You will create a study plan with timelines and links to resources. Only include relevant resources because time is limited. 
+                      <br>My request: [I want to become a frontend developer but I do not know how to code. I can study 10 hours per week and only want video resources. I want to learn to code in React which is javascript framework. Create a study plan for me]`)
+                } else ($('#text-display').text(''))
+            })
+        })
      </script>   
 </main>
 </body>

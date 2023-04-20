@@ -62,8 +62,13 @@ router.post('/signup', async(req, res, next) => {
         // console.log(`My hash is ${hash}`);
         newUser.password = hash;
         // console.log(newUser);
-        await User.create(newUser);
-        res.redirect('/user/login');
+        const existUser = await User.findOne({email: newUser.email});
+        if(existUser){
+             res.status(400).json({error: 'Email already exists'})
+        } else {
+            await User.create(newUser);
+            res.redirect('/user/login');
+        }
     } catch(err) {
         console.log(err);
         next();

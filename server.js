@@ -95,45 +95,33 @@ app.get('/daily',async(req,res)=>{
 // })
 
 app.get('/ai', async(req,res)=>{
-    // const question = req.query.question;
-    // console.log(question)
-    // const query={};
-    // if(question){
-    //   query.question = question;
-    // }
+    const question = req.query.question;
+    console.log(question)
+    const query={};
+    if(question){
+      query.question = question;
+    }
 
-    // const url = 'https://simple-chatgpt-api.p.rapidapi.com/ask';
+    const url = 'https://simple-chatgpt-api.p.rapidapi.com/ask';
 
-    // const options = {
-    //   method: 'POST',
-    //   headers: {
-    //     'content-type': 'application/json',
-    //     'X-RapidAPI-Key': API2,
-    //     'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
-    //   },
-    //   body: JSON.stringify({"question":question})
-    // };
-    // try{
-    //     const ai=await fetch(url,options)
-    //     const chatgpt=await ai.json();
-    //     console.log(chatgpt)
-    //     res.render('type/chatgpt', {chatgpt})
-    // } catch (err) {
-    //     console.log(err);
-    //     res.status(500).send('server error')
-    // }
-    const chatgpt={
-        answer: "1. Understand JavaScript fundamentals: Before learning Node.js, it's crucial to have a solid grasp of JavaScript basics, including variables, data types, loops, and conditional statements. This will form the foundation for learning more complex concepts in Node.js.\n" +
-          '\n' +
-          '2. Set up a development environment: To learn Node.js, you need to have a development environment set up on your computer. This includes installing Node.js, a code editor, and other tools that will make your learning process smoother.\n' +
-          '\n' +
-          '3. Learn Node.js core concepts: Once you have a basic understanding of JavaScript and have set up your environment, you can start learning the core concepts of Node.js. This includes learning about modules, file systems, events, streams, and callbacks.\n' +
-          '\n' +
-          '4. Build projects: Learning by doing is one of the best ways to learn Node.js. Start by building small projects such as a web server, command-line application, or a chat application. As you gain more experience, you can move on to building more complex projects.\n' +
-          '\n' +
-          '5. Engage with the Node.js community: The Node.js community is vast and active. Engaging with the community through forums, social media, or attending meetups can help you learn from other developers, get feedback on your projects, and stay up to date with the latest trends and best practices.'
-      }
-      res.render('type/chatgpt', {chatgpt}) 
+    const options = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key': API2,
+        'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
+      },
+      body: JSON.stringify({"question":question})
+    };
+    try{
+        const ai=await fetch(url,options)
+        const chatgpt=await ai.json();
+        console.log(chatgpt)
+        res.render('type/chatgpt', {chatgpt})
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('server error')
+    }
 })
 
 //listener
