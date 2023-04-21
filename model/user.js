@@ -5,16 +5,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Hey you have to enter an email"],
         unique: [true, "You already have an account with that email address"]
-    }, password: {
+    }, 
+    password: {
         type: String,
         required: [true, "You have to enter a password, why do I even have to tell you that?"]
-    }, username: {
+    },
+    username: {
         type: String,
         required: [true, "Please enter a username"],
         unique: [true, "That username already exists"]
-    }
+    }, 
+    events: [{ type: mongoose.Schema.Types.ObjectId, ref: "events" }]
+
 }, {timestamps: true});
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('user', userSchema, 'User');
 
 module.exports = User;

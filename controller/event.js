@@ -39,11 +39,6 @@ router.get('/', async(req,res) =>{
     res.render('index',{events})
 })
 
-router.get('/incomplete', async(req,res) =>{
-    const incomplete = await Event.find({completed:false})
-    res.render('type/incomplete',{incomplete})
-})
-
 //search route
 router.get('/type', async(req,res) =>{
   const eventType = req.query.eventType ;
@@ -231,7 +226,7 @@ router.put('/:id', async (req, res) => {
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,subtasks, completed}=req.body;
 
-    const start=(moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
+    const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
    
     const event = await Event.findByIdAndUpdate(req.params.id, {

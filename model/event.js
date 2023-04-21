@@ -37,9 +37,10 @@ const eventSchema = new Schema({
     completed:{
         type: Boolean,
         default: false
-    }
+    },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 })
 
-const Event = mongoose.model('Event', eventSchema, "event");
+const Event = mongoose.model('Event', eventSchema, "events");
 
 module.exports = Event;

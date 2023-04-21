@@ -44,21 +44,7 @@ app.get('/',(req,res)=>{
     res.render('users/entrance')
 })
 
-app.get('/monthly', async(req,res)=>{
-    const events= await Event.find({})
-    const eventData= events.map((event)=>{
-        return{
-            title: event.eventTitle,
-            start: event.startTime.toISOString(),
-            end: event.endTime.toISOString(),
-            url: `event/${event._id}`,
-            allDay:false,
-            classNames: `${event.eventType} ${event.completed ? "completed": ""}`
-        }
-    })
-    const eventDataJson=JSON.stringify(eventData)
-    res.render('calendar/monthly',{eventDataJson})
-})
+
 app.get('/weekly',async(req,res)=>{
     const events= await Event.find({})
     const eventData= events.map((event)=>{
@@ -74,21 +60,7 @@ app.get('/weekly',async(req,res)=>{
     const eventDataJson=JSON.stringify(eventData)
     res.render('calendar/weekly', {eventDataJson})
 })
-app.get('/daily',async(req,res)=>{
-    const events= await Event.find({})
-    const eventData= events.map((event)=>{
-        return{
-            title: event.eventTitle,
-            start: event.startTime.toISOString(),
-            end: event.endTime.toISOString(),
-            url: `event/${event._id}`,
-            allDay:false,
-            classNames: `${event.eventType} ${event.completed ? "completed": ""}`
-        }
-    })
-    const eventDataJson=JSON.stringify(eventData)
-    res.render('calendar/daily',{eventDataJson})
-})
+
 
 // app.get('/*',(req,res) => {
 //     res.send('Error')
@@ -108,7 +80,7 @@ app.get('/ai', async(req,res)=>{
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'xxxx',
+        'X-RapidAPI-Key': "API2",
         'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
       },
       body: JSON.stringify({"question":question})

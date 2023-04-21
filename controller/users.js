@@ -77,7 +77,7 @@ router.post('/signup', async(req, res, next) => {
 
 router.get('/logout', (req, res) => {
     req.session.destroy();
-    res.redirect('/user/login');
+    res.redirect('/');
 })
 
 module.exports = router;
