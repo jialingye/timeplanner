@@ -4,10 +4,12 @@ const mongoose = require('mongoose');
 const app=express();
 const {PORT,DATABASE_URL,SECRET,API2}=require('./config');
 const methodOverride=require('method-override');
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const fetch = require('node-fetch')
 
 //middleware
+
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(methodOverride("_method"))
@@ -80,7 +82,7 @@ app.get('/ai', async(req,res)=>{
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': '9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
+        'X-RapidAPI-Key': 'a9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
         'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
       },
       body: JSON.stringify({"question":question})
@@ -88,7 +90,6 @@ app.get('/ai', async(req,res)=>{
     try{
         const ai=await fetch(url,options)
         const chatgpt=await ai.json();
-        console.log(chatgpt)
         res.render('type/chatgpt', {chatgpt})
     } catch (err) {
         console.log(err);
