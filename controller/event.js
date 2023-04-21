@@ -72,14 +72,23 @@ router.get('/date', async(req,res) =>{
     if(date){
       query.date = date;
     }
+ 
 
-    const myHeaders = new Headers();
-    myHeaders.append("X-API-KEY", API);
     const requestOptions = {
       method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
+      headers: {
+        'content-type': 'application/json',
+        'X-API-KEY': API,
+      },
     };
+
+    // const myHeaders = new Headers();
+    // myHeaders.append("X-API-KEY", API);
+    // const requestOptions = {
+    //   method: 'GET',
+    //   headers: myHeaders,
+    //   redirect: 'follow'
+    // };
 
     try{
       const api=await fetch(`https://api.api-ninjas.com/v1/bucketlist`, requestOptions)
