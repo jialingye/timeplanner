@@ -80,7 +80,7 @@ app.get('/ai', async(req,res)=>{
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': "API2",
+        'X-RapidAPI-Key': '9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
         'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
       },
       body: JSON.stringify({"question":question})
