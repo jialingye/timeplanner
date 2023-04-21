@@ -12,21 +12,36 @@
 <p></p>
 
 ## Wire Frames
-<h3> Initial Landing View </h3>
- <img src='https://github.com/jialingye/projectOne/blob/main/images/md/begin.png' alt='initial'/>
+<h3> Index View </h3>
+ <img src='https://github.com/jialingye/timeplanner/blob/main/public/images/index.png' alt='initial'/>
 
-<h3> To Do List View </h3>
-<img src='https://github.com/jialingye/projectOne/blob/main/images/md/main.png' alt='main'/>
+<h3> Detail View </h3>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/show.png' alt='detail'/>
 
 <h3> Calendar View </h3>
-<img src='https://github.com/jialingye/projectOne/blob/main/images/md/final.png' alt='final'/>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/monthlycal.png' alt='calender'/>
+
+<h3> Analysis View </h3>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/analysis.png' alt='analysis'/>
+<h3> Focus View </h3>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/focus.png' alt='focus'/>
+
+<h3> AI View </h3>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/ai.png' alt='focus'/>
+
+<h3> Create View </h3>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/create.png' alt='focus'/>
+
+<h3> Edit View </h3>
+<img src='https://github.com/jialingye/timeplanner/blob/main/public/images/edit.png' alt='focus'/>
+
 
 ## User Stories
 ### MVP Goals
 <ul>
     <li>As a user, Users can create a to-do list with the ability to edit and delete items on the list.</li>
     <li>As a user, To-do list items are displayed on a daily, weekly, and monthly calendar view, making it easy to see what tasks need to be done on a specific day.</li>
-    <li>As a user, I want my score to be kept track of so that I can know how many items I have found.</li>
+    <li>As a user, I want my completed tasks to be kept track of so that I can know how many items I have completed each day/week/month.</li>
     <li>As a user, Users can log in to their personal account with proper authorization.</li>
     <li>As a user, The app has a visually appealing design that makes it easy to use and understand</li>
     
@@ -56,4 +71,4 @@
 </ol>
 
 ### Links
-[Enter the game](https://jialingye.github.io/projectOne/)
+[Enter the game](https://time-planner.onrender.com/)
