@@ -6,7 +6,7 @@ const {PORT,DATABASE_URL,SECRET,API2}=require('./config');
 const methodOverride=require('method-override');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const fetch = require('node-fetch')
+
 
 //middleware
 
@@ -70,6 +70,7 @@ app.get('/weekly',async(req,res)=>{
 
 app.get('/ai', async(req,res)=>{
     const question = req.query.question;
+    const {default: fetch} = await import('node-fetch')
     console.log(question)
     const query={};
     if(question){
@@ -82,7 +83,7 @@ app.get('/ai', async(req,res)=>{
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'a9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
+        'X-RapidAPI-Key': '9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
         'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
       },
       body: JSON.stringify({"question":question})

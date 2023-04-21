@@ -66,7 +66,7 @@ router.get('/type', async(req,res) =>{
 })
 
 router.get('/date', async(req,res) =>{
-
+    const {default: fetch} = await import('node-fetch')
     const date = req.query.date ;
     const query={};
     if(date){
