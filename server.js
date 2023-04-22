@@ -48,7 +48,9 @@ app.get('/',(req,res)=>{
 
 
 app.get('/weekly',async(req,res)=>{
+    //find data from mongodb
     const events= await Event.find({})
+    //using map method to create new object for each event
     const eventData= events.map((event)=>{
         return{
             title: event.eventTitle,
@@ -59,6 +61,7 @@ app.get('/weekly',async(req,res)=>{
             classNames: `${event.eventType} ${event.completed ? "completed": ""}`
         }
     })
+    //stringify data
     const eventDataJson=JSON.stringify(eventData)
     res.render('calendar/weekly', {eventDataJson})
 })
@@ -69,6 +72,7 @@ app.get('/weekly',async(req,res)=>{
 // })
 
 app.get('/ai', async(req,res)=>{
+    //get question and assign question to query
     const question = req.query.question;
     const {default: fetch} = await import('node-fetch')
     console.log(question)
@@ -76,14 +80,14 @@ app.get('/ai', async(req,res)=>{
     if(question){
       query.question = question;
     }
-
+    //From API Website
     const url = 'https://simple-chatgpt-api.p.rapidapi.com/ask';
 
     const options = {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'a9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
+        'X-RapidAPI-Key': '9eecca6f1amsh38e81f292aea512p1fd5e9jsn7ca6fd0c67c5',
         'X-RapidAPI-Host': 'simple-chatgpt-api.p.rapidapi.com'
       },
       body: JSON.stringify({"question":question})

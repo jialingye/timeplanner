@@ -71,4 +71,5 @@
 </ol>
 
 ### Links
-[Enter the game](https://time-planner.onrender.com/)
+<p>Email: 123@123.com Password: 1234567890</p>
+[Time Planner](https://time-planner.onrender.com/)

@@ -11,12 +11,15 @@ const eventSeed=require('../db/eventSeed');
 
 //create route
 router.post('/',async(req,res)=>{
+    //get req.body
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,completed,subtasks}=req.body;
    
+    //translate startTime and endTime to ISO string
     const start=(moment(`${date}${startTime}`,'YYYY-MM-DD hh:mm A')).toDate();
     const end=moment(`${date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
     
+    //create event
     try{
         const todoEvent= await Event.create({
             date,
@@ -41,10 +44,11 @@ router.get('/', async(req,res) =>{
 
 //search route
 router.get('/type', async(req,res) =>{
+  //defined query variable
   const eventType = req.query.eventType ;
   const completed = req.query.completed;
   const date = req.query.date;
-
+  //make query object
   const query={};
   if(eventType){
     query.eventType = eventType;
@@ -55,7 +59,7 @@ router.get('/type', async(req,res) =>{
   if(date){
     query.date = date;
   }
-
+  //find query object in mongodb
   try{
     const events=await Event.find(query);
     res.render ('type/search', {events});
@@ -65,15 +69,18 @@ router.get('/type', async(req,res) =>{
   }
 })
 
+//Focus Route
 router.get('/date', async(req,res) =>{
+    //API bug fix
     const {default: fetch} = await import('node-fetch')
+    //query object 
     const date = req.query.date ;
     const query={};
     if(date){
       query.date = date;
     }
  
-
+    //API requestion option
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -82,18 +89,13 @@ router.get('/date', async(req,res) =>{
       },
     };
 
-    // const myHeaders = new Headers();
-    // myHeaders.append("X-API-KEY", API);
-    // const requestOptions = {
-    //   method: 'GET',
-    //   headers: myHeaders,
-    //   redirect: 'follow'
-    // };
-
     try{
+      //fetch api
       const api=await fetch(`https://api.api-ninjas.com/v1/bucketlist`, requestOptions)
       const bucketlist = await api.json();
+      //get search event
       const events=await Event.find(query);
+      //import both API and search data
       res.render ('type/date', {events, bucketlist});
     } catch (err) {
       console.error(err);
@@ -123,29 +125,37 @@ router.get('/seed',async(req,res)=>{
 // analyze
 router.get('/analysis', async(req,res)=>{
   try{
+    //get today, last satuday, and the last day of last month
     const today = new Date();
     const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay()-1);
     const startOfMonth= new Date(today.getFullYear(), today.getMonth(), 0);
-   
+    
+    //get sunday date and first day of this month's date
     const sunday=new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay());
     const firstDate= new Date(today.getFullYear(), today.getMonth(), 1);
 
+    //look for data from (not including) last saturday to today (inluding today).
     const weekly = await Event.find({
       date: {$gte: startOfWeek, $lte: today},
       completed: true
     })
+
+     //look for data from (not including) the end of last month to today (inluding today).
     const monthly = await Event.find({
       date: {$gte: startOfMonth, $lte: today},
       completed: true
     })
+     //look for data from (not including) yesterday to today (inluding today).
     const daily = await Event.find({
       date: {$gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()-1), $lte: today},
       completed: true
     })
+    //find all the completed events
     const completedEvents = await Event.find({
       completed: true
     })
 
+    // make object that stores eventType and tasks count for total/daily/weekly/monthly completed tasks
     let typeCount={};
     for( let event of completedEvents){
       const eventType = event.eventType 
@@ -169,7 +179,7 @@ router.get('/analysis', async(req,res)=>{
       const eventType = event.eventType;
       dailyTypeCount[eventType] = (dailyTypeCount[eventType]|| 0) + 1;
     }
-
+    //import data
     res.render('type/analysis', {
       sunday: sunday,
       firstDate: firstDate,
@@ -205,7 +215,7 @@ router.get('/:id', async (req, res) => {
     }
   })
 
-// Show
+// Focus
 router.get('date/:date', async (req, res) => {
     try {
       const {date} = req.params;
@@ -220,7 +230,6 @@ router.get('date/:date', async (req, res) => {
 // Edit
 router.get('/:id/edit', async(req,res)=>{
     const todo = await Event.findById(req.params.id)
-
     res.render('event/edit.ejs',{todo})
 });
 
@@ -232,12 +241,13 @@ router.delete('/:id', async (req, res) => {
 
 // Update
 router.put('/:id', async (req, res) => {
+  //get req.body
     req.body.completed=req.body.completed==="on"? true:false;
     const {eventTitle,eventType,date,startTime,endTime,subtasks, completed}=req.body;
-
+  //translate to iso
     const start=moment(`${req.body.date}${startTime}`,'YYYY-MM-DD hh:mm A').toDate();
     const end=moment(`${req.body.date}${endTime}`,'YYYY-MM-DD hh:mm A').toDate();
-   
+  //update event
     const event = await Event.findByIdAndUpdate(req.params.id, {
         eventTitle,
         eventType,

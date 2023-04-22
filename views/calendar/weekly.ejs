@@ -4,7 +4,7 @@
   <head>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
     <script>
-
+      //from fullCalendar website, I just JSON.parse my data 
       document.addEventListener('DOMContentLoaded', function() {
         const data=JSON.parse(`<%- eventDataJson %>`)
         const calendarEl = document.getElementById('calendar')

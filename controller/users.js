@@ -19,27 +19,25 @@ router.get('/signup', (req, res) => {
 router.post('/login', async(req, res, next) => {
     try {
         let user;
+        //find user exist
         const userExists = await User.exists({email: req.body.email});
-        // console.log("email: "+req.body.email)
-        // console.log("user exist"+userExists)
+        
+        //if exists, find the one in mongodb
         if(userExists) {
             user = await User.findOne({email: req.body.email});
-            // console.log("user"+user)
         } else {
             failedLogin = "Your username or password didn't match"
-            // console.log("can't find your username")
             return res.redirect('/user/login');
         }
+        //if user match, compare password
         const match = await bcrypt.compare(req.body.password, user.password);
-        console.log("match" + match)
+        //if password match, then create session
         if(match) {
             req.session.currentUser = {
                 id: user._id,
                 username: user.username
             };
-            console.log(req.session);
-            console.log(match);
-            console.log(userExists);
+            
             res.redirect('/event');
         } else {
             failedLogin = "Your username or password didn't match"
@@ -53,15 +51,17 @@ router.post('/login', async(req, res, next) => {
 
 router.post('/signup', async(req, res, next) => {
     try {
+        //creat user and rounds of salt
         const newUser = req.body;
-        // console.log(newUser);
+        //creat hash on user password depends on SALT number
         const rounds = SALT;
         const salt = await bcrypt.genSalt(parseInt(rounds));
-        // console.log(`My salt is ${salt}`);
+
         const hash = await bcrypt.hash(newUser.password, salt);
-        // console.log(`My hash is ${hash}`);
+
         newUser.password = hash;
-        // console.log(newUser);
+        
+        //if user not already exist, create user
         const existUser = await User.findOne({email: newUser.email});
         if(existUser){
              res.status(400).json({error: 'Email already exists'})
