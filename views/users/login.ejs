@@ -51,6 +51,7 @@
             <div class="row">
               <div class="col-sm-10">
                 <input type="password" id="password" class="form-control" name="password">
+              
               </div>
               <div class="col-sm-2">
                 <button type="button" class="btn btn-secondary toggle-password">Show</button>
@@ -58,6 +59,11 @@
             </div>
           </div>
         </div>
+        <br>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn yellow demo-user">Demo User </button>
+        </div>
+        <br>
         <br>
         <div class="d-grid gap-2">
           <button type="submit" class="btn yellow toggle-password">Log In </button>
@@ -70,18 +76,26 @@
 
       
       <script>
-        var togglePassword = document.querySelector(".toggle-password");
-        var passwordField = document.getElementById("password");
+        window.onload = function(){
+          var demoUser = document.querySelector(".demo-user");
+          var emailField = document.querySelector("#email")
+          var togglePassword = document.querySelector(".toggle-password");
+          var passwordField = document.getElementById("password");
       
-        togglePassword.addEventListener("click", function() {
-          if (passwordField.type === "password") {
-            passwordField.type = "text";
-            togglePassword.textContent = "Hide";
-          } else {
-            passwordField.type = "password";
-            togglePassword.textContent = "Show";
-          }
-        });
+          demoUser.addEventListener("click", function(){
+            emailField.value = "123@123.com";
+            passwordField.value = "1234567890";
+          })
+          togglePassword.addEventListener("click", function() {
+            if (passwordField.type === "password") {
+              passwordField.type = "text";
+              togglePassword.textContent = "Hide";
+            } else {
+              passwordField.type = "password";
+              togglePassword.textContent = "Show";
+            }
+          });
+        }
       </script>
 </body>
 </html>

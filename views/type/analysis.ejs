@@ -9,6 +9,40 @@
          %>
         <div class="container-fluid">
           <div class="row line">
+            <h1 class="font text-center margin-top">Total Tasks Completion </h1>
+            <div class="col-md-6 col-sm-12">
+              <br>
+              <br>
+              <br>
+              <canvas id="allChart">
+              </canvas>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="col-10 ccenter ">
+                <table class="table border">
+                  <thead>
+                    <tr>
+                      <th scope="col">Type</th>
+                      <th scope="col">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for (key in typeCount) {%>
+                    <tr class="<%=key%>">
+                      <th scope="row" class="<%=key%>"><%=key%></th>
+                      <td><%=typeCount[key] %></td>
+                    </tr>
+                    <%}%>
+                    <tr class="total">
+                      <th scope="row" >Total</th>
+                      <td><%=totalTasks %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>    
+          <div class="row line">
             <h1 class="font text-center margin-top">Daily Tasks Completion </h1>
             <div class="col-md-6 col-sm-12">
               <canvas id="dailyChart">
@@ -106,40 +140,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <h1 class="font text-center margin-top">Total Tasks Completion </h1>
-            <div class="col-md-6 col-sm-12">
-              <br>
-              <br>
-              <br>
-              <canvas id="allChart">
-              </canvas>
-            </div>
-            <div class="col-md-6 col-sm-12">
-              <div class="col-10 ccenter ">
-                <table class="table border">
-                  <thead>
-                    <tr>
-                      <th scope="col">Type</th>
-                      <th scope="col">Count</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for (key in typeCount) {%>
-                    <tr class="<%=key%>">
-                      <th scope="row" class="<%=key%>"><%=key%></th>
-                      <td><%=typeCount[key] %></td>
-                    </tr>
-                    <%}%>
-                    <tr class="total">
-                      <th scope="row" >Total</th>
-                      <td><%=totalTasks %></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>    
+          
         </div>
     </main>
     <script>

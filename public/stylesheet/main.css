@@ -114,7 +114,13 @@ a{
 .btntype{
     margin-top: 25px;
 }
-
+.pomotodo{
+    border: 10px solid #e6d3d6;
+    border-radius: 2em;
+    gap: 25px;
+    margin-top: 5px;
+    height: 85%;
+}
 
 .division {
     border: 10px solid #e6d3d6;
@@ -127,7 +133,26 @@ a{
     border-radius: 0.5em;
     gap: 25px;
     margin-top: 25px;
-    min-height: 400px;
+    min-height: 60%;
+}
+.division3 {
+    border: 10px solid #d8dfe9;
+    border-radius: 0.5em;
+    gap: 25px;
+    margin-top: 25px;
+    min-height: 70vh;
+}
+.scrollable{
+    max-height:85vh;
+    overflow: auto;
+}
+
+.scrollable::-webkit-scrollbar{
+    width: 0.5em
+}
+
+.scrollable::-webkit-scrollbar-thumb{
+    background-color: transparent;
 }
 
 .ulc{
@@ -145,9 +170,7 @@ a{
     flex-direction: column;
     margin-top: 10px;
 }
-.pomotodo{
-    height: 600px;
-}
+
 .yellow {
     background-color: #fee1a7;
     border: 2px solid transparent;

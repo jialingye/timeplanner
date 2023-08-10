@@ -19,7 +19,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
-              <div class="division">
+              <div class="division scrollable">
                 <h1 class="text-center">Incomplete</h1>
                 <% if (events.length=== 0) { %>
                     <h1>To-do Not Found</h1>
@@ -59,7 +59,7 @@
             </div>
              
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-              <div class="division">
+              <div class="division scrollable">
               <div class="row">
                 <h1 class="text-center">Completed</h1>
                 <% if (events.length=== 0) { %>
@@ -100,13 +100,15 @@
               </div>
             </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pomotodo">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
               <div class="division">
                 <h1 class="text-center">Motivation</h1>
                 <p><%= bucketlist.item %></p> 
                 </div>
-              <div class="division">
+              <div class="pomotodo">
+                <div style="margin-top: 50px;">
               <%- include("../partial/pomotodo.ejs") %>
+                 </div>
               </div>
             </div>
         </div>
