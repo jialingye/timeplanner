@@ -1,4 +1,5 @@
 # Project-2
+[Time Planner](https://time-planner.onrender.com/)
 <p> My app is a powerful time tracking and to-do list app that helps users manage their tasks and stay productive.  </p>
 
 ### Installation Instructions
@@ -69,7 +70,3 @@
     <li>Test the application thoroughly, including functional and usability testing, security testing, and stress testing to ensure the application is robust and reliable.
 </li>
 </ol>
-
-### Links
-<p>Email: 123@123.com Password: 1234567890</p>
-[Time Planner](https://time-planner.onrender.com/)
